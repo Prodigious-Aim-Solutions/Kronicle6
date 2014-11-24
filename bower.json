@@ -1,0 +1,27 @@
+{
+  "name": "Kronicle6",
+  "version": "0.0.0",
+  "authors": [
+    "Corbzilla <jason.ron.corbett@gmail.com>"
+  ],
+  "description": "A SPA Framework written in ES6",
+  "main": "build/kronicle6.js",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "SPA",
+    "ES6",
+    "Kronicle"
+  ],
+  "license": "GNU GPL V2",
+  "homepage": "https://github.com/Prodigious-Aim-Solutions/Kronicle6",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
