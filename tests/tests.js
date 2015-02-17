@@ -51,4 +51,10 @@ describe("Kronicle", function () {
     var kronicle = new Kronicle({ modules: [mod] });
     kronicle.should.have.property("ready");
   });
+
+  it("It should have a property core", function () {
+    var mod = new Module();
+    var kronicle = new Kronicle({ modules: [mod] });
+    kronicle.should.have.property("ready");
+  });
 });

@@ -49,4 +49,10 @@ describe('Kronicle', () => {
             kronicle.should.have.property('ready');
          });
 
+        it('It should have a property core', () =>{
+            var mod = new Module();
+            var kronicle = new Kronicle({modules: [mod]});
+            kronicle.should.have.property('ready');
+         });
+
 });

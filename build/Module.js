@@ -6,8 +6,10 @@ var _classProps = function (child, staticProps, instanceProps) {
 };
 
 var Module = (function () {
-  var Module = function Module(name) {
-    this.name = name || "";
+  var Module = function Module(args) {
+    if (args === undefined) args = {};
+    this.name = args.name || "";
+    this.initialize(args);
   };
 
   _classProps(Module, null, {

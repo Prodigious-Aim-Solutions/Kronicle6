@@ -4,7 +4,7 @@ import * as PubSub from 'pubsub-js';
 
 export class Kronicle{
     constructor(args){
-        new Core(args.modules);
+        this.core = new Core(args.modules);
     }
     
     initialize(cb) {

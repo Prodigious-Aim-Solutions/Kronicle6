@@ -1,6 +1,7 @@
 export class Module {
-    constructor(name){
-        this.name = name || "";
+    constructor(args = {}){
+        this.name = args.name || "";
+        this.initialize(args);
     }
     
     initialize(){

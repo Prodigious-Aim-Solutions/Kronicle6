@@ -13,6 +13,7 @@ var Core = function Core(modules) {
     PubSub.publish(events.ModuleLoaded, mod);
   }
   PubSub.publish(events.AfterModulesLoad, modules);
+  PubSub.publish(events.Ready);
 };
 
 exports.Core = Core;

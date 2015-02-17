@@ -11,7 +11,7 @@ var PubSub = require('pubsub-js');
 
 var Kronicle = (function () {
   var Kronicle = function Kronicle(args) {
-    new Core(args.modules);
+    this.core = new Core(args.modules);
   };
 
   _classProps(Kronicle, null, {

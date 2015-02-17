@@ -12,6 +12,7 @@ export class Core {
             PubSub.publish(events.ModuleLoaded, mod);
         }
         PubSub.publish(events.AfterModulesLoad, modules);
+        PubSub.publish(events.Ready);
     }
     
 }
