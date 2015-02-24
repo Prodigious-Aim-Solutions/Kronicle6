@@ -1,75 +1,74 @@
 "use strict";
 
-var _classProps = function (child, staticProps, instanceProps) {
-  if (staticProps) Object.defineProperties(child, staticProps);
-  if (instanceProps) Object.defineProperties(child.prototype, instanceProps);
-};
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-var _extends = function (child, parent) {
-  child.prototype = Object.create(parent.prototype, {
-    constructor: {
-      value: child,
-      enumerable: false,
-      writable: true,
-      configurable: true
+var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+var Module = require("../Module.js").Module;
+var PubSub = _interopRequire(require("pubsub-js"));
+
+var events = require("./DataSourcesEvents.js").events;
+var DataSources = exports.DataSources = (function (Module) {
+    function DataSources() {
+        var sources = arguments[0] === undefined ? [] : arguments[0];
+        _classCallCheck(this, DataSources);
+
+        this.sources = sources;
+        PubSub.publish(events.BeforeDataSourcesLoaded);
+        for (var index in sources) {
+            this.sources[index] = source;
+            PubSub.publish(events.DataSourceLoaded, source);
+        }
+        PubSub.publish(events.AfterDataSourcesLoaded);
+        return this;
     }
-  });
-  child.__proto__ = parent;
-};
 
-var Module = require('../Module.js').Module;
-var PubSub = require('pubsub-js');
+    _inherits(DataSources, Module);
 
-var events = require('./DataSourcesEvents.js').events;
-var DataSources = (function (Module) {
-  var DataSources = function DataSources(sources) {
-    if (sources === undefined) sources = [];
-    this.sources = sources;
-    PubSub.publish(events.BeforeDataSourcesLoaded);
-    for (var index in sources) {
-      this.sources[index] = source;
-      PubSub.publish(events.DataSourceLoaded, source);
-    }
-    PubSub.publish(events.AfterDataSourcesLoaded);
-    return this;
-  };
+    _prototypeProperties(DataSources, null, {
+        beforeDataSourcesLoaded: {
+            value: function beforeDataSourcesLoaded(cb) {
+                PubSub.subscribe(events.BeforeDataSourcesLoaded, cb);
+            },
+            writable: true,
+            configurable: true
+        },
+        dataSourceLoaded: {
+            value: function dataSourceLoaded(cb) {
+                PubSub.subscribe(events.DataSourceLoaded, cb);
+            },
+            writable: true,
+            configurable: true
+        },
+        afterDataSourcesLoaded: {
+            value: function afterDataSourcesLoaded(cb) {
+                PubSub.subscribe(events.AfterDataSourcesLoaded, cb);
+            },
+            writable: true,
+            configurable: true
+        },
+        addDataSource: {
+            value: function addDataSource(source) {
+                this.sources[source.name] = source;
+            },
+            writable: true,
+            configurable: true
+        },
+        removeDataSource: {
+            value: function removeDataSource(name) {
+                this.sources[source.name] = null;
+            },
+            writable: true,
+            configurable: true
+        }
+    });
 
-  _extends(DataSources, Module);
-
-  _classProps(DataSources, null, {
-    beforeDataSourcesLoaded: {
-      writable: true,
-      value: function (cb) {
-        PubSub.subscribe(events.BeforeDataSourcesLoaded, cb);
-      }
-    },
-    dataSourceLoaded: {
-      writable: true,
-      value: function (cb) {
-        PubSub.subscribe(events.DataSourceLoaded, cb);
-      }
-    },
-    afterDataSourcesLoaded: {
-      writable: true,
-      value: function (cb) {
-        PubSub.subscribe(events.AfterDataSourcesLoaded, cb);
-      }
-    },
-    addDataSource: {
-      writable: true,
-      value: function (source) {
-        this.sources[source.name] = source;
-      }
-    },
-    removeDataSource: {
-      writable: true,
-      value: function (name) {
-        this.sources[source.name] = null;
-      }
-    }
-  });
-
-  return DataSources;
+    return DataSources;
 })(Module);
-
-exports.DataSources = DataSources;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});

@@ -1,19 +1,29 @@
 "use strict";
 
-var PubSub = require('pubsub-js');
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-var events = require('./EventTypes.js').events;
-var Core = function Core(modules) {
-  PubSub.publish(events.Initialized);
-  this.addedModules = [];
-  PubSub.publish(events.BeforeModulesLoad, modules);
-  for (var mod in modules) {
-    modules[mod].initialize();
-    this.addedModules.push(mod);
-    PubSub.publish(events.ModuleLoaded, mod);
-  }
-  PubSub.publish(events.AfterModulesLoad, modules);
-  PubSub.publish(events.Ready);
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+var PubSub = _interopRequire(require("pubsub-js"));
+
+var events = require("./EventTypes.js").events;
+var Core = exports.Core = function Core(modules) {
+    _classCallCheck(this, Core);
+
+    PubSub.publish(events.Initialized);
+    this.addedModules = [];
+    PubSub.publish(events.BeforeModulesLoad, modules);
+    for (var mod in modules) {
+        modules[mod].initialize();
+        this.addedModules.push(mod);
+        PubSub.publish(events.ModuleLoaded, mod);
+    }
+    PubSub.publish(events.AfterModulesLoad, modules);
+    PubSub.publish(events.Ready);
 };
 
-exports.Core = Core;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+//export { Core };

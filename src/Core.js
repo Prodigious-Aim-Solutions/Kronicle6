@@ -1,4 +1,4 @@
-import * as PubSub from 'pubsub-js'; 
+import {default as PubSub} from 'pubsub-js'; 
 import {events} from './EventTypes.js';
 
 export class Core {

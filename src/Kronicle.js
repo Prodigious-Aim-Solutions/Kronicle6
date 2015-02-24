@@ -2,7 +2,7 @@ import {Core} from './Core.js';
 import {events} from './EventTypes.js';
 import * as PubSub from 'pubsub-js';
 
-export class Kronicle{
+export class Kronicle {
     constructor(args){
         this.core = new Core(args.modules);
     }

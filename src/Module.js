@@ -1,10 +1,10 @@
 export class Module {
-    constructor(args = {}){
-        this.name = args.name || "";
+    constructor(args = {name: ""}) {
+        this.name = args.name;
         this.initialize(args);
     }
     
-    initialize(){
+    initialize() {
         // no op, override to add initialization code
     }
 }

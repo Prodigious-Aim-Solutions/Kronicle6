@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    '6to5': {
+    'babel': {
         dist: {
             files: {
                 'build/Core.js': 'src/Core.js',
@@ -36,12 +36,12 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-6to5');
+  grunt.loadNpmTasks('grunt-babel');
   //grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-mocha-cli');
 
-  grunt.registerTask('test', ['6to5:dist', '6to5:test', 'mochacli']);
+  grunt.registerTask('test', ['babel:dist', 'babel:test', 'mochacli']);
 
-  grunt.registerTask('default', ['6to5:dist']);
+  grunt.registerTask('default', ['babel:dist']);
 
 };

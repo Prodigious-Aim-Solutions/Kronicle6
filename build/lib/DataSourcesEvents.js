@@ -1,8 +1,8 @@
 "use strict";
-var events = require('../EventTypes.js').events;
+var events = require("../EventTypes.js").events;
 
 
-var events = events;
+//var events = events;
 events.BeforeDataSourcesLoaded = "BeforeDataSourcesLoaded";
 events.DataSourceLoaded = "DataSourceLoaded";
 events.AfterDataSourcesLoaded = "AfterDataSourcesLoaded";
@@ -13,3 +13,6 @@ events.OnRemove = "OnRemove";
 events.OnGet = "OnGet";
 
 exports.events = events;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});

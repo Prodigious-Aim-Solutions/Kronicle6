@@ -36,7 +36,7 @@ var listController = new Controller({
         this.model.onGet(this.view.render);        
     }
 });
-var controllers = [mainController];
+var controllers = [listController];
 var kronApp = new Kronicle({modules:[dataSources, controllers]});
 kronApp.ready(() => {});
 

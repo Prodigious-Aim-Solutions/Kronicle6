@@ -1,5 +1,5 @@
 import {Module} from '../Module.js';
-import * as PubSub from 'pubsub-js'; 
+import {default as PubSub} from 'pubsub-js'; 
 import {events} from './DataSourcesEvents.js'
 
 export class DataSources extends Module {

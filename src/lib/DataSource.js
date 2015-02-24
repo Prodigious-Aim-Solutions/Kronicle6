@@ -1,5 +1,6 @@
 import {Module} from '../Module.js';
-import {events} from './DataSourcesEvents.js'
+import {events} from './DataSourcesEvents.js';
+import {default as PubSub} from 'pubsub-js';
 
 export class DataSource extends Module {
     initialize(source, name) {

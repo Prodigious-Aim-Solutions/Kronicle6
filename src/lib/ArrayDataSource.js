@@ -4,7 +4,7 @@ import {DataSource} from './DataSource.js';
 export class ArrayDataSource extends DataSource {
     initialize(source, name) {
         this.data = [];
-        super(source, name);
+        super.initialize(source, name);
     }
     
     login(user, pass, cb) {

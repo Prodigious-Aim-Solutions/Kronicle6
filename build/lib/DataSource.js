@@ -1,117 +1,126 @@
 "use strict";
 
-var _classProps = function (child, staticProps, instanceProps) {
-  if (staticProps) Object.defineProperties(child, staticProps);
-  if (instanceProps) Object.defineProperties(child.prototype, instanceProps);
-};
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-var _extends = function (child, parent) {
-  child.prototype = Object.create(parent.prototype, {
-    constructor: {
-      value: child,
-      enumerable: false,
-      writable: true,
-      configurable: true
+var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+var Module = require("../Module.js").Module;
+var events = require("./DataSourcesEvents.js").events;
+var PubSub = _interopRequire(require("pubsub-js"));
+
+var DataSource = exports.DataSource = (function (Module) {
+    function DataSource() {
+        _classCallCheck(this, DataSource);
+
+        if (Module != null) {
+            Module.apply(this, arguments);
+        }
     }
-  });
-  child.__proto__ = parent;
-};
 
-var Module = require('../Module.js').Module;
-var events = require('./DataSourcesEvents.js').events;
-var DataSource = (function (Module) {
-  var DataSource = function DataSource() {
-    Module.apply(this, arguments);
-  };
+    _inherits(DataSource, Module);
 
-  _extends(DataSource, Module);
+    _prototypeProperties(DataSource, null, {
+        initialize: {
+            value: function initialize(source, name) {
+                this.source = source || {};
+                this.name = this.source.name;
+            },
+            writable: true,
+            configurable: true
+        },
+        login: {
+            value: function login(user, pass, cb) {
+                this.source.login(user, pass, function () {
+                    cb();
+                    PubSub.publish(events.OnLogin, user, pass, events.OnLogin);
+                });
+            },
+            writable: true,
+            configurable: true
+        },
+        create: {
+            value: function create(item, cb) {
+                this.source.create(item, function () {
+                    cb();
+                    PubSub.publish(events.OnCreate, item, events.OnCreate);
+                });
+            },
+            writable: true,
+            configurable: true
+        },
+        update: {
+            value: function update(item, cb) {
+                this.source.update(item, function () {
+                    cb();
+                    PubSub.publish(events.OnUpdate, item, events.OnUpdate);
+                });
+            },
+            writable: true,
+            configurable: true
+        },
+        remove: {
+            value: function remove(item, cb) {
+                this.source.remove(item, function () {
+                    cb();
+                    PubSub.publish(events.OnRemove, item, events.OnRemove);
+                });
+            },
+            writable: true,
+            configurable: true
+        },
+        get: {
+            value: function get(item, cb) {
+                this.source.get(item, function () {
+                    cb();
+                    PubSub.publish(events.OnGet, item, events.OnGet);
+                });
+            },
+            writable: true,
+            configurable: true
+        },
+        onLogin: {
+            value: function onLogin() {
+                PubSub.subscribe(events.OnLogin, cb);
+            },
+            writable: true,
+            configurable: true
+        },
+        onCreate: {
+            value: function onCreate() {
+                PubSub.subscribe(events.OnCreate, cb);
+            },
+            writable: true,
+            configurable: true
+        },
+        onUpdate: {
+            value: function onUpdate() {
+                PubSub.subscribe(events.OnUpdate, cb);
+            },
+            writable: true,
+            configurable: true
+        },
+        onRemove: {
+            value: function onRemove() {
+                PubSub.subscribe(events.OnRemove, cb);
+            },
+            writable: true,
+            configurable: true
+        },
+        onGet: {
+            value: function onGet() {
+                PubSub.subscribe(events.OnGet, cb);
+            },
+            writable: true,
+            configurable: true
+        }
+    });
 
-  _classProps(DataSource, null, {
-    initialize: {
-      writable: true,
-      value: function (source, name) {
-        this.source = source || {};
-        this.name = this.source.name;
-      }
-    },
-    login: {
-      writable: true,
-      value: function (user, pass, cb) {
-        this.source.login(user, pass, function () {
-          cb();
-          PubSub.publish(events.OnLogin, user, pass, events.OnLogin);
-        });
-      }
-    },
-    create: {
-      writable: true,
-      value: function (item, cb) {
-        this.source.create(item, function () {
-          cb();
-          PubSub.publish(events.OnCreate, item, events.OnCreate);
-        });
-      }
-    },
-    update: {
-      writable: true,
-      value: function (item, cb) {
-        this.source.update(item, function () {
-          cb();
-          PubSub.publish(events.OnUpdate, item, events.OnUpdate);
-        });
-      }
-    },
-    remove: {
-      writable: true,
-      value: function (item, cb) {
-        this.source.remove(item, function () {
-          cb();
-          PubSub.publish(events.OnRemove, item, events.OnRemove);
-        });
-      }
-    },
-    get: {
-      writable: true,
-      value: function (item, cb) {
-        this.source.get(item, function () {
-          cb();
-          PubSub.publish(events.OnGet, item, events.OnGet);
-        });
-      }
-    },
-    onLogin: {
-      writable: true,
-      value: function () {
-        PubSub.subscribe(events.OnLogin, cb);
-      }
-    },
-    onCreate: {
-      writable: true,
-      value: function () {
-        PubSub.subscribe(events.OnCreate, cb);
-      }
-    },
-    onUpdate: {
-      writable: true,
-      value: function () {
-        PubSub.subscribe(events.OnUpdate, cb);
-      }
-    },
-    onRemove: {
-      writable: true,
-      value: function () {
-        PubSub.subscribe(events.OnRemove, cb);
-      }
-    },
-    onGet: {
-      writable: true,
-      value: function () {
-        PubSub.subscribe(events.OnGet, cb);
-      }
-    }
-  });
-
-  return DataSource;
+    return DataSource;
 })(Module);
-
-exports.DataSource = DataSource;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});

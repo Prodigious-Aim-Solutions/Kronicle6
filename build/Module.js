@@ -1,25 +1,30 @@
 "use strict";
 
-var _classProps = function (child, staticProps, instanceProps) {
-  if (staticProps) Object.defineProperties(child, staticProps);
-  if (instanceProps) Object.defineProperties(child.prototype, instanceProps);
-};
+var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
 
-var Module = (function () {
-  var Module = function Module(args) {
-    if (args === undefined) args = {};
-    this.name = args.name || "";
-    this.initialize(args);
-  };
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-  _classProps(Module, null, {
-    initialize: {
-      writable: true,
-      value: function () {}
+var Module = exports.Module = (function () {
+    function Module() {
+        var args = arguments[0] === undefined ? { name: "" } : arguments[0];
+        _classCallCheck(this, Module);
+
+        this.name = args.name;
+        this.initialize(args);
     }
-  });
 
-  return Module;
+    _prototypeProperties(Module, null, {
+        initialize: {
+            value: function initialize() {},
+            writable: true,
+            configurable: true
+        }
+    });
+
+    return Module;
 })();
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-exports.Module = Module;
+// no op, override to add initialization code

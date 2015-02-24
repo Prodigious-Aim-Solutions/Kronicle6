@@ -1,63 +1,60 @@
 "use strict";
 
-var _classProps = function (child, staticProps, instanceProps) {
-  if (staticProps) Object.defineProperties(child, staticProps);
-  if (instanceProps) Object.defineProperties(child.prototype, instanceProps);
-};
+var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
 
-var _extends = function (child, parent) {
-  child.prototype = Object.create(parent.prototype, {
-    constructor: {
-      value: child,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  child.__proto__ = parent;
-};
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var Module = require('../Module.js').Module;
-var View = (function (Module) {
-  var View = function View(args) {
-    this.template = args.template || function () {
-      return "";
-    };
-    this.components = [];
-    if (args.components) {
-      this.addComponents(args.components);
-    }
-    Module.call(this, { name: args.name + "View" });
-  };
+var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
-  _extends(View, Module);
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-  _classProps(View, null, {
-    render: {
-      writable: true,
-      value: function (err, data) {
-        if (!err) {
-          return this.template(data);
+var Module = require("../Module.js").Module;
+var View = exports.View = (function (Module) {
+    function View(args) {
+        _classCallCheck(this, View);
+
+        this.template = args.template || function () {
+            return "";
+        };
+        this.components = [];
+        if (args.components) {
+            this.addComponents(args.components);
         }
-      }
-    },
-    addComponents: {
-      writable: true,
-      value: function (components) {
-        for (var i in components) {
-          this.addComponent(components[i]);
-        }
-      }
-    },
-    addComponent: {
-      writable: true,
-      value: function (component) {
-        this.components[component.name.split("Component")[0]] = component;
-      }
+        _get(Object.getPrototypeOf(View.prototype), "constructor", this).call(this, { name: args.name + "View" });
     }
-  });
 
-  return View;
+    _inherits(View, Module);
+
+    _prototypeProperties(View, null, {
+        render: {
+            value: function render(err, data) {
+                if (!err) {
+                    return this.template(data);
+                }
+            },
+            writable: true,
+            configurable: true
+        },
+        addComponents: {
+            value: function addComponents(components) {
+                for (var i in components) {
+                    this.addComponent(components[i]);
+                }
+            },
+            writable: true,
+            configurable: true
+        },
+        addComponent: {
+            value: function addComponent(component) {
+                this.components[component.name.split("Component")[0]] = component;
+            },
+            writable: true,
+            configurable: true
+        }
+    });
+
+    return View;
 })(Module);
-
-exports.View = View;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
