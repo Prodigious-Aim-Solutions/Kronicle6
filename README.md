@@ -10,3 +10,4 @@ Using http://addyosmani.com/largescalejavascript/ as inspiration.
 - Event Driven
  - Uses a pubsub pattern to communicate between moudles
 - Facade to present consistent simple API
+
