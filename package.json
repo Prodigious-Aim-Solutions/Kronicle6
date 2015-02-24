@@ -33,6 +33,7 @@
     "grunt-mocha-test": "~0.12.3",
     "pubsub-js": "~1.5.0",
     "grunt-mocha-cli": "~1.11.0",
-    "grunt-babel": "~4.0.0"
+    "grunt-babel": "~4.0.0",
+    "grunt-cli": "~0.1.13"
   }
 }
