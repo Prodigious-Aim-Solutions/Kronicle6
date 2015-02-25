@@ -16,15 +16,12 @@ describe('Datasource', () => {
             dataSource.should.have.property('login');
          });
          it('It should have a method create', () =>{
-            //var dataSource = new DataSource();
             dataSource.should.have.property('create');
          });
          it('It should have a method update', () =>{
-            //var dataSource = new DataSource();
             dataSource.should.have.property('update');
          });
          it('It should have a method remove', () =>{
-            //var dataSource = new DataSource();
             dataSource.should.have.property('remove');
          });
          it('It should have a method get', () =>{
@@ -32,19 +29,15 @@ describe('Datasource', () => {
             dataSource.should.have.property('get');
          });
          it('It should have a property name', () =>{
-            //var dataSource = new DataSource();
             dataSource.should.have.property('name');
          });
          it('It should have a method onLogin', () =>{
-            //var dataSource = new DataSource();
             dataSource.should.have.property('onLogin');
          });
          it('It should have a method onCreate', () =>{
-            //var dataSource = new DataSource();
             dataSource.should.have.property('onCreate');
          });
          it('It should have a method onUpdate', () =>{
-            //var dataSource = new DataSource();
             dataSource.should.have.property('onUpdate');
          });
          it('It should have a method onRemove', () =>{
@@ -52,7 +45,6 @@ describe('Datasource', () => {
             dataSource.should.have.property('onRemove');
          });
          it('It should have a method onGet', () =>{
-            //var dataSource = new DataSource();
             dataSource.should.have.property('onGet');
          });
 });
