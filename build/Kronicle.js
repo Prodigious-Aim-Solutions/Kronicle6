@@ -1,6 +1,6 @@
 "use strict";
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
 var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
 
@@ -8,7 +8,7 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var Core = require("./Core.js").Core;
 var events = require("./EventTypes.js").events;
-var PubSub = _interopRequireWildcard(require("pubsub-js"));
+var PubSub = _interopRequire(require("pubsub-js"));
 
 var Kronicle = exports.Kronicle = (function () {
     function Kronicle(args) {

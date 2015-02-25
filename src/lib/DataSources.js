@@ -7,8 +7,8 @@ export class DataSources extends Module {
         this.sources = sources;
         PubSub.publish(events.BeforeDataSourcesLoaded);
         for(var index in sources){            
-            this.sources[index] = source;
-            PubSub.publish(events.DataSourceLoaded, source);
+            this.sources[index] = sources[index];
+            PubSub.publish(events.DataSourceLoaded, sources[index]);
         }
         PubSub.publish(events.AfterDataSourcesLoaded);
         return this;
@@ -31,6 +31,6 @@ export class DataSources extends Module {
     }
     
     removeDataSource(name){
-        this.sources[source.name] = null;
+        this.sources[name] = null;
     }
 }
