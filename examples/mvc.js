@@ -1,44 +1,49 @@
-import {Kronicle} from '../build/Kronicle.js';
-import {DataSource} from '../build/lib/DataSource.js';
-import {DataSources} from '../build/lib/DataSources.js';
-import {ArrayDataSource} from '../build/lib/ArrayDatasource';
-import {View} from '../build/lib/View.js';
-import {Controller} from '../build/lib/Controller.js';
+"use strict";
 
-var dataSources = new DataSources([new DataSource(new ArrayDataSource(), 'ArrayDataSource')]);
+var Kronicle = require("../build/Kronicle.js").Kronicle;
+var DataSource = require("../build/lib/DataSource.js").DataSource;
+var DataSources = require("../build/lib/DataSources.js").DataSources;
+var ArrayDataSource = require("../build/lib/ArrayDataSource.js").ArrayDataSource;
+var View = require("../build/lib/View.js").View;
+var Controller = require("../build/lib/Controller.js").Controller;
+var Component = require("../build/lib/Component.js").Component;
+
+
+var dataSources = new DataSources([new DataSource(new ArrayDataSource(), "ArrayDataSource")]);
 var listController = new Controller({
-    name: 'ListItems',
+    name: "ListItems",
     view: new View({
-        name: 'ListItems'
-        template: (data) => { return "<ul>{list}</ul>".replace('{list}', data); },
-        components: [
-            new Component({
-                name: 'ListItem',
-                template: (data) => { return "<li>{data}</li>".replace('{data}', data); },
-                components: []
-            })
-        ],
-        render: (err, data) => {
-            var output ="";
-            if(data) {
-                for(var i in data){
-                    output += this.components['ListItem'].render(data[i]);
+        name: "ListItems",
+        template: function (data) {
+            return "<ul>{list}</ul>".replace("{list}", data);
+        },
+        components: [new Component({
+            name: "ListItem",
+            template: function (data) {
+                return "<li>{data}</li>".replace("{data}", data);
+            },
+            components: []
+        })],
+        render: function (err, data) {
+            var output = "";
+            if (data) {
+                for (var i in data) {
+                    output += undefined.components.ListItem.render(data[i]);
                 }
                 return output;
             }
         }
     }),
-    model: dataSources['ArrayDataSource'],
-    initialize: () => {
-        this.model.onCreate(this.view.render);
-        this.model.onUpdate(this.view.render);
-        this.model.onRemove(this.view.render);
-        this.model.onGet(this.view.render);        
+    model: dataSources.ArrayDataSource,
+    initialize: function () {
+        undefined.model.onCreate(undefined.view.render);
+        undefined.model.onUpdate(undefined.view.render);
+        undefined.model.onRemove(undefined.view.render);
+        undefined.model.onGet(undefined.view.render);
     }
 });
-var controllers = [listController];
-var kronApp = new Kronicle({modules:[dataSources, controllers]});
-kronApp.ready(() => {});
 
-
+var controllers = [listController]; //need controller collection wrapper, maybe router?
+var kronApp = new Kronicle({ modules: [dataSources, listController] });
+kronApp.ready(function () {});
 
