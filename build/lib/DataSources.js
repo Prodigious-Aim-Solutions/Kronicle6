@@ -17,6 +17,7 @@ var DataSources = exports.DataSources = (function (Module) {
         var sources = arguments[0] === undefined ? [] : arguments[0];
         _classCallCheck(this, DataSources);
 
+        this.name = "DataSources";
         this.sources = sources;
         PubSub.publish(events.BeforeDataSourcesLoaded);
         for (var index in sources) {

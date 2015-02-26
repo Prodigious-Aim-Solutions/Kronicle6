@@ -5,15 +5,15 @@ import {ArrayDataSource} from '../build/lib/ArrayDataSource.js';
 import should from 'should';
 
 describe('Controller', () => {
-        var controller = new Controller({
-            name: 'Main',
-            view: new View('Main'),
-            dataSource: new DataSource(new ArrayDataSource(), 'ArrayDataSource')
-        });
-        it('It should contain a property model', () => {            
-            controller.should.have.property('model');
-        });
-        it('It should contain a property view', () => {            
-            controller.should.have.property('view');
-        });
+    var controller = new Controller({
+        name: 'Main',
+        view: new View('Main'),
+        dataSource: new DataSource(new ArrayDataSource(), 'ArrayDataSource')
+    });
+    it('It should contain a property model', () => {            
+        controller.should.have.property('model');
+    });
+    it('It should contain a property view', () => {            
+        controller.should.have.property('view');
+    });
 });

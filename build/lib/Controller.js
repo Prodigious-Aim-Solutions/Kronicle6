@@ -8,7 +8,8 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var Module = require("../Module.js").Module;
 var Controller = exports.Controller = (function (Module) {
-    function Controller(args) {
+    function Controller() {
+        var args = arguments[0] === undefined ? { model: {}, view: {}, name: "" } : arguments[0];
         _classCallCheck(this, Controller);
 
         this.model = args.model;

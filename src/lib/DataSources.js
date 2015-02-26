@@ -4,6 +4,7 @@ import {events} from './DataSourcesEvents.js';
 
 export class DataSources extends Module {
     constructor(sources = []){
+        this.name = "DataSources";
         this.sources = sources;
         PubSub.publish(events.BeforeDataSourcesLoaded);
         for(var index in sources){            
