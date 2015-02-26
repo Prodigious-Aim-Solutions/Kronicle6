@@ -7,6 +7,7 @@ import {Controller} from '../build/lib/Controller.js';
 import {Component} from '../build/lib/Component.js';
 
 var dataSources = new DataSources([new DataSource(new ArrayDataSource(), 'ArrayDataSource')]);
+//dataSources.sources['ArrayDataSource'].create('test');
 var listController = new Controller({
     name: 'ListItems',
     view: new View({
@@ -23,7 +24,7 @@ var listController = new Controller({
             var output ="";
             if(data) {
                 for(var i in data){
-                    output += this.components['ListItem'].render(data[i]);
+                    output += this.components.modules.ListItemComp.render(data[i]);
                 }
                 return output;
             }
@@ -38,6 +39,6 @@ var listController = new Controller({
     }
 });
 var controllers = [listController]; //need controller collection wrapper, maybe router?
-var kronApp = new Kronicle({modules:[dataSources, listController]});
-kronApp.ready(() => {});
+var kronApp = new Kronicle().build({modules:[dataSources, listController]});
 
+export { kronApp };

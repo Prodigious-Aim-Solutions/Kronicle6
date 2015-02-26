@@ -10,6 +10,7 @@ var Component = require("../build/lib/Component.js").Component;
 
 
 var dataSources = new DataSources([new DataSource(new ArrayDataSource(), "ArrayDataSource")]);
+//dataSources.sources['ArrayDataSource'].create('test');
 var listController = new Controller({
     name: "ListItems",
     view: new View({
@@ -28,7 +29,7 @@ var listController = new Controller({
             var output = "";
             if (data) {
                 for (var i in data) {
-                    output += undefined.components.ListItem.render(data[i]);
+                    output += undefined.components.modules.ListItemComp.render(data[i]);
                 }
                 return output;
             }
@@ -42,8 +43,10 @@ var listController = new Controller({
         undefined.model.onGet(undefined.view.render);
     }
 });
-
 var controllers = [listController]; //need controller collection wrapper, maybe router?
-var kronApp = new Kronicle({ modules: [dataSources, listController] });
-kronApp.ready(function () {});
+var kronApp = new Kronicle().build({ modules: [dataSources, listController] });
 
+exports.kronApp = kronApp;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
