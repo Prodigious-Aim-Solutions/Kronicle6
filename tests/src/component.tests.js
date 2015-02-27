@@ -4,7 +4,7 @@ import should from 'should';
 describe('Component', () => {
         var view = new Component({
             name: 'main', 
-            template: () => { return "<div></div>"}, 
+            template: () => { return "<div></div>"; }, 
             components: []
         });
         it('It should contain a property name which is a string', () =>{            

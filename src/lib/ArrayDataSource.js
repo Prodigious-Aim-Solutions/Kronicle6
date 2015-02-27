@@ -14,16 +14,16 @@ export class ArrayDataSource extends DataSource {
     }
     
     create(item, cb) {
-        this.data.push(item)
+        this.data.push(item);
         cb(null, item);
     }
     
     update(item, cb) {
         for(var i in this.data){
             if(this.data[i]._id == item._id){
-                this.data[i] = item
+                this.data[i] = item;
                 cb(null, this.data[i]);
-                return
+                return;
             }
         }
         cb(new Error('Item not found in data.'), item);
@@ -34,7 +34,7 @@ export class ArrayDataSource extends DataSource {
             if(this.data[i]._id == id){
                 this.data.splice(i, 1);
                 cb(null, this.data.length);
-                return
+                return;
             }
         }        
         cb(new Error('Item not found in data.'), id);
@@ -44,7 +44,7 @@ export class ArrayDataSource extends DataSource {
         for(var i in this.data){
             if(this.data[i]._id == id) {
                 cb(null, this.data[i]);
-                return
+                return;
             }
         }
         cb(new Error('Item not found in data.'), id);

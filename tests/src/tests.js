@@ -7,7 +7,7 @@ describe('Module', () => {
          it('It should have a method initialize', () =>{
             var mod = new Module();
             mod.should.have.property('initialize');
-         })
+         });
 });
 
 describe('Core', () => {
@@ -15,7 +15,7 @@ describe('Core', () => {
             var mod = new Module();
             var core = new Core(new Array(mod));
             core.should.have.property('addedModules');
-         })
+         });
 });
 
 describe('Kronicle', () => {

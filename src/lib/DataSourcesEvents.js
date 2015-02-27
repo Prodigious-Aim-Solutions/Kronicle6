@@ -1,7 +1,5 @@
-"use strict";
 import {events} from '../EventTypes.js';
 
-//var events = events;
 events.BeforeDataSourcesLoaded = 'BeforeDataSourcesLoaded';
 events.DataSourceLoaded = 'DataSourceLoaded';
 events.AfterDataSourcesLoaded = 'AfterDataSourcesLoaded';

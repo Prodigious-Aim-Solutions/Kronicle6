@@ -1,6 +1,6 @@
 import {Module} from '../Module.js';
 import {default as PubSub} from 'pubsub-js'; 
-import {events} from './DataSourcesEvents.js'
+import {events} from './DataSourcesEvents.js';
 
 export class DataSources extends Module {
     constructor(sources = []){
