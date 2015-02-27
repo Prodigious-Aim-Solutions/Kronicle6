@@ -1,8 +1,8 @@
 "use strict";
+
 var events = require("../EventTypes.js").events;
 
 
-//var events = events;
 events.BeforeDataSourcesLoaded = "BeforeDataSourcesLoaded";
 events.DataSourceLoaded = "DataSourceLoaded";
 events.AfterDataSourcesLoaded = "AfterDataSourcesLoaded";

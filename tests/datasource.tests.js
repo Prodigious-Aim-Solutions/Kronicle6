@@ -20,15 +20,12 @@ describe("Datasource", function () {
       dataSource.should.have.property("login");
    });
    it("It should have a method create", function () {
-      //var dataSource = new DataSource();
       dataSource.should.have.property("create");
    });
    it("It should have a method update", function () {
-      //var dataSource = new DataSource();
       dataSource.should.have.property("update");
    });
    it("It should have a method remove", function () {
-      //var dataSource = new DataSource();
       dataSource.should.have.property("remove");
    });
    it("It should have a method get", function () {
@@ -36,19 +33,15 @@ describe("Datasource", function () {
       dataSource.should.have.property("get");
    });
    it("It should have a property name", function () {
-      //var dataSource = new DataSource();
       dataSource.should.have.property("name");
    });
    it("It should have a method onLogin", function () {
-      //var dataSource = new DataSource();
       dataSource.should.have.property("onLogin");
    });
    it("It should have a method onCreate", function () {
-      //var dataSource = new DataSource();
       dataSource.should.have.property("onCreate");
    });
    it("It should have a method onUpdate", function () {
-      //var dataSource = new DataSource();
       dataSource.should.have.property("onUpdate");
    });
    it("It should have a method onRemove", function () {
@@ -56,7 +49,6 @@ describe("Datasource", function () {
       dataSource.should.have.property("onRemove");
    });
    it("It should have a method onGet", function () {
-      //var dataSource = new DataSource();
       dataSource.should.have.property("onGet");
    });
 });

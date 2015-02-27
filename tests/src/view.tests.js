@@ -5,7 +5,7 @@ import should from 'should';
 describe('View', () => {
         var view = new View({
             name: 'main', 
-            template: () => { return "<div></div>"}, 
+            template: () => { return "<div></div>"; }, 
             components: []
         });
         it('It should contain a property name which is a string', () =>{            
@@ -25,16 +25,16 @@ describe('View', () => {
             view.should.have.property('addComponents');
             view.addComponents([new Component({
                 name: 'Test',
-                template: (data) => { return "data" },
+                template: (data) => { return "data"; },
             })]);
-            view.components['Test'].should.exist;
+            view.components.Test.should.exist;
         });
         it('It should contain a method addComponent which takes a component and registers them to this.components', () =>{            
             view.should.have.property('addComponent');
             view.addComponent(new Component({
                 name: 'Test',
-                template: (data) => { return "data" },
+                template: (data) => { return "data"; },
             }));
-            view.components['Test'].should.exist;
+            view.components.Test.should.exist;
         });
 });
