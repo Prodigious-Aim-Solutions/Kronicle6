@@ -22,7 +22,7 @@ var DataSources = exports.DataSources = (function (Module) {
         PubSub.publish(events.BeforeDataSourcesLoaded);
         for (var index in sources) {
             console.log(sources[index].name);
-            this.sources[sources[index].name] = sources[index].source;
+            this.sources[sources[index].name] = sources[index];
             PubSub.publish(events.DataSourceLoaded, sources[index]);
         }
         PubSub.publish(events.AfterDataSourcesLoaded);

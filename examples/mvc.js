@@ -10,7 +10,9 @@ var Component = require("../build/lib/Component.js").Component;
 
 
 var dataSources = new DataSources([new DataSource({ source: new ArrayDataSource(), name: "ArrayDataSource" })]);
-dataSources.sources.ArrayDataSource.create("test", null);
+dataSources.sources.ArrayDataSource.create("test", function () {
+    console.log("test created");
+});
 var listController = new Controller({
     name: "ListItems",
     view: new View({

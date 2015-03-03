@@ -1,7 +1,6 @@
 import {Module} from '../Module.js';
 import {events} from './DataSourcesEvents.js';
 import {default as PubSub} from 'pubsub-js';
-import {default as util} from 'util';
 
 export class DataSource extends Module {
     constructor(args = {source: undefined, name: ''}) {

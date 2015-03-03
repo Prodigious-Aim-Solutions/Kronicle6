@@ -14,8 +14,6 @@ var Module = require("../Module.js").Module;
 var events = require("./DataSourcesEvents.js").events;
 var PubSub = _interopRequire(require("pubsub-js"));
 
-var util = _interopRequire(require("util"));
-
 var DataSource = exports.DataSource = (function (Module) {
     function DataSource() {
         var args = arguments[0] === undefined ? { source: undefined, name: "" } : arguments[0];

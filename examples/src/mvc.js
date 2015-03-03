@@ -7,7 +7,9 @@ import {Controller} from '../build/lib/Controller.js';
 import {Component} from '../build/lib/Component.js';
 
 var dataSources = new DataSources([new DataSource({source: new ArrayDataSource(), name: 'ArrayDataSource'})]);
-dataSources.sources.ArrayDataSource.create('test', null);
+dataSources.sources.ArrayDataSource.create('test', () =>{
+    console.log('test created')
+});
 var listController = new Controller({
     name: 'ListItems',
     view: new View({
