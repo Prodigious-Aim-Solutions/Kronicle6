@@ -7,7 +7,7 @@ export class DataSources extends Module {
         this.name = "DataSources";
         this.sources = sources;
         PubSub.publish(events.BeforeDataSourcesLoaded);
-        for(var index in sources){            
+        for(let index in sources){            
             this.sources[index] = sources[index];
             PubSub.publish(events.DataSourceLoaded, sources[index]);
         }
