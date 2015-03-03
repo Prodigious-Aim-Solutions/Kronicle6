@@ -19,7 +19,7 @@ export class ArrayDataSource extends DataSource {
     }
     
     update(item, cb) {
-        for(var i in this.data){
+        for(let i in this.data){
             if(this.data[i]._id == item._id){
                 this.data[i] = item;
                 cb(null, this.data[i]);
@@ -30,7 +30,7 @@ export class ArrayDataSource extends DataSource {
     }
     
     remove(id, cb) {
-        for(var i in this.data){
+        for(let i in this.data){
             if(this.data[i]._id == id){
                 this.data.splice(i, 1);
                 cb(null, this.data.length);
@@ -41,7 +41,7 @@ export class ArrayDataSource extends DataSource {
     }
     
     get(id, cb) {
-        for(var i in this.data){
+        for(let i in this.data){
             if(this.data[i]._id == id) {
                 cb(null, this.data[i]);
                 return;

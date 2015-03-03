@@ -6,7 +6,7 @@ export class Core {
         PubSub.publish(events.Initialized);
         this.addedModules = [];
         PubSub.publish(events.BeforeModulesLoad, modules);
-        for(var mod in modules){
+        for(let mod in modules){
             modules[mod].initialize();
             this.addedModules.push(mod);
             PubSub.publish(events.ModuleLoaded, mod);

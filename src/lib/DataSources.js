@@ -6,7 +6,7 @@ export class DataSources extends Module {
     constructor(sources = []){
         this.sources = sources;
         PubSub.publish(events.BeforeDataSourcesLoaded);
-        for(var index in sources){            
+        for(let index in sources){            
             this.sources[index] = source;
             PubSub.publish(events.DataSourceLoaded, source);
         }
