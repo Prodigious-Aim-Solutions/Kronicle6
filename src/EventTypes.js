@@ -1,4 +1,4 @@
-var events = {
+const events = {
     Initialized: "Initialized",
     BeforeModulesLoad: "BeforeModulesLoad",
     ModuleLoaded: "ModuleLoaded",

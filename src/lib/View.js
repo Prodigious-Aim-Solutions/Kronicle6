@@ -17,7 +17,7 @@ export class View extends Module {
     }
     
     addComponents (components) {
-        for(var i in components){
+        for(let i in components){
             this.addComponent(components[i]);
         }
     }

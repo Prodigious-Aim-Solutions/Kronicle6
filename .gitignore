@@ -1,2 +1,4 @@
 .codio
 node_modules/
+coverage/
+run_istanbul.sh
