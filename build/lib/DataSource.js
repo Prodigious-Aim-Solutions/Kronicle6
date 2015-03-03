@@ -14,14 +14,33 @@ var Module = require("../Module.js").Module;
 var events = require("./DataSourcesEvents.js").events;
 var PubSub = _interopRequire(require("pubsub-js"));
 
+var util = _interopRequire(require("util"));
+
 var DataSource = exports.DataSource = (function (Module) {
     function DataSource() {
-        var args = arguments[0] === undefined ? { source: {}, name: "" } : arguments[0];
+        var args = arguments[0] === undefined ? { source: undefined, name: "" } : arguments[0];
         _classCallCheck(this, DataSource);
 
-        this.source = args.source;
-        //this.name = args.name;
+        var emptySource = {
+            login: function (user, pass, cb) {
+                cb();return;
+            },
+            create: function (item, cb) {
+                cb();return;
+            },
+            update: function (item, cb) {
+                cb();return;
+            },
+            remove: function (item, cb) {
+                cb();return;
+            },
+            get: function (item, cb) {
+                cb();return;
+            }
+        };
+        this.source = args.source || emptySource;
         _get(Object.getPrototypeOf(DataSource.prototype), "constructor", this).call(this, { name: args.name });
+        return this;
     }
 
     _inherits(DataSource, Module);
@@ -29,8 +48,9 @@ var DataSource = exports.DataSource = (function (Module) {
     _prototypeProperties(DataSource, null, {
         login: {
             value: function login(user, pass, cb) {
-                this.source.login(user, pass, function () {
-                    cb();
+                var _this = this;
+                this.source.login(user, pass, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnLogin, user, pass, events.OnLogin);
                 });
             },
@@ -39,8 +59,9 @@ var DataSource = exports.DataSource = (function (Module) {
         },
         create: {
             value: function create(item, cb) {
-                this.source.create(item, function () {
-                    cb();
+                var _this = this;
+                this.source.create(item, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnCreate, item, events.OnCreate);
                 });
             },
@@ -49,8 +70,9 @@ var DataSource = exports.DataSource = (function (Module) {
         },
         update: {
             value: function update(item, cb) {
-                this.source.update(item, function () {
-                    cb();
+                var _this = this;
+                this.source.update(item, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnUpdate, item, events.OnUpdate);
                 });
             },
@@ -59,8 +81,9 @@ var DataSource = exports.DataSource = (function (Module) {
         },
         remove: {
             value: function remove(item, cb) {
-                this.source.remove(item, function () {
-                    cb();
+                var _this = this;
+                this.source.remove(item, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnRemove, item, events.OnRemove);
                 });
             },
@@ -69,8 +92,9 @@ var DataSource = exports.DataSource = (function (Module) {
         },
         get: {
             value: function get(item, cb) {
-                this.source.get(item, function () {
-                    cb();
+                var _this = this;
+                this.source.get(item, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnGet, item, events.OnGet);
                 });
             },
@@ -108,6 +132,15 @@ var DataSource = exports.DataSource = (function (Module) {
         onGet: {
             value: function onGet() {
                 PubSub.subscribe(events.OnGet, cb);
+            },
+            writable: true,
+            configurable: true
+        },
+        _doCbIfExists: {
+            value: function _doCbIfExists(cb, err, data) {
+                if (cb) {
+                    cb(err, data);
+                }
             },
             writable: true,
             configurable: true

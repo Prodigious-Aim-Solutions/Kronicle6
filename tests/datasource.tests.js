@@ -23,18 +23,33 @@ describe("Datasource", function () {
     it("It should have a method login", function () {
         dataSource.should.have.property("login");
     });
-    it("It should have a method create", function () {
+    it("It should have a method create which takes an item and a callback(not required)", function (done) {
         dataSource.should.have.property("create");
+        dataSource.create("test");
+        dataSource.create("test", function () {
+            done();
+        });
     });
-    it("It should have a method update", function () {
+    it("It should have a method update which takes an item and a callback(not required)", function (done) {
         dataSource.should.have.property("update");
+        dataSource.update("test");
+        dataSource.update("test", function () {
+            done();
+        });
     });
-    it("It should have a method remove", function () {
+    it("It should have a method remove which takes an item and a callback(not required)", function (done) {
         dataSource.should.have.property("remove");
+        dataSource.remove("test");
+        dataSource.remove("test", function () {
+            done();
+        });
     });
-    it("It should have a method get", function () {
-        //var dataSource = new DataSource();
+    it("It should have a method get which takes an item and a callback(not required)", function (done) {
         dataSource.should.have.property("get");
+        dataSource.get("test");
+        dataSource.get("test", function () {
+            done();
+        });
     });
     it("It should have a property name", function () {
         dataSource.should.have.property("name");

@@ -20,18 +20,33 @@ describe('Datasource', () => {
     it('It should have a method login', () =>{            
         dataSource.should.have.property('login');
     });
-    it('It should have a method create which takes an item and a callback, if no cb provided then error is thrown', () =>{
+    it('It should have a method create which takes an item and a callback(not required)', (done) =>{
         dataSource.should.have.property('create');
+        dataSource.create('test');
+        dataSource.create('test', () =>{
+            done();
+        });
     });
-    it('It should have a method update', () =>{
+    it('It should have a method update which takes an item and a callback(not required)', (done) =>{
         dataSource.should.have.property('update');
+        dataSource.update('test');
+        dataSource.update('test', () =>{
+            done();
+        });
     });
-    it('It should have a method remove', () =>{
+    it('It should have a method remove which takes an item and a callback(not required)', (done) =>{
         dataSource.should.have.property('remove');
+        dataSource.remove('test');
+        dataSource.remove('test', () =>{
+            done();
+        });
     });
-    it('It should have a method get', () =>{
-        //var dataSource = new DataSource();
+    it('It should have a method get which takes an item and a callback(not required)', (done) =>{
         dataSource.should.have.property('get');
+        dataSource.get('test');
+        dataSource.get('test', () =>{
+            done();
+        });
     });
     it('It should have a property name', () =>{
         dataSource.should.have.property('name');
