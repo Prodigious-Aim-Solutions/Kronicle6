@@ -5,10 +5,11 @@ import {events} from './DataSourcesEvents.js';
 export class DataSources extends Module {
     constructor(sources = []){
         this.name = "DataSources";
-        this.sources = sources;
+        this.sources = { };
         PubSub.publish(events.BeforeDataSourcesLoaded);
-        for(let index in sources){            
-            this.sources[index] = sources[index];
+        for(let index in sources) {
+            console.log(sources[index].name);
+            this.sources[sources[index].name] = sources[index].source;
             PubSub.publish(events.DataSourceLoaded, sources[index]);
         }
         PubSub.publish(events.AfterDataSourcesLoaded);

@@ -3,9 +3,9 @@ import {events} from './DataSourcesEvents.js';
 import {default as PubSub} from 'pubsub-js';
 
 export class DataSource extends Module {
-    initialize(source, name) {
-        this.source = source || {};
-        this.name = this.source.name;
+    constructor(args = {source: {}, name: ''}) {
+        this.source = args.source;
+        super({name: args.name});
     }
     
     login(user, pass, cb) {

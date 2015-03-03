@@ -9,8 +9,8 @@ var Controller = require("../build/lib/Controller.js").Controller;
 var Component = require("../build/lib/Component.js").Component;
 
 
-var dataSources = new DataSources([new DataSource(new ArrayDataSource(), "ArrayDataSource")]);
-//dataSources.sources['ArrayDataSource'].create('test');
+var dataSources = new DataSources([new DataSource({ source: new ArrayDataSource(), name: "ArrayDataSource" })]);
+dataSources.sources.ArrayDataSource.create("test", null);
 var listController = new Controller({
     name: "ListItems",
     view: new View({

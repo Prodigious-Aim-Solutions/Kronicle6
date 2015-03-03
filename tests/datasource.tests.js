@@ -12,6 +12,10 @@ describe("Datasources", function () {
         var dataSources = new DataSources();
         dataSources.should.have.property("sources");
     });
+    it("It should take an array of datasources that are accessed through souces", function () {
+        var dataSources = new DataSources([new DataSource({ source: new ArrayDataSource(), name: "ArrayDataSource" })]);
+        dataSources.sources.should.have.property("ArrayDataSource");
+    });
 });
 
 describe("Datasource", function () {

@@ -4,9 +4,14 @@ import {ArrayDataSource} from '../build/lib/ArrayDataSource.js';
 import should from 'should';
 
 describe('Datasources', () => {
-    it('It should contain an array of Datasources', () =>{
-        var dataSources = new DataSources();
+    
+    it('It should contain an array of Datasources', () => { 
+        let dataSources = new DataSources();
         dataSources.should.have.property('sources');
+    });
+    it('It should take an array of datasources that are accessed through souces', () => {
+        let dataSources = new DataSources([new DataSource({source: new ArrayDataSource(), name: 'ArrayDataSource'})]);
+        dataSources.sources.should.have.property('ArrayDataSource');
     });
 });
 
@@ -15,7 +20,7 @@ describe('Datasource', () => {
     it('It should have a method login', () =>{            
         dataSource.should.have.property('login');
     });
-    it('It should have a method create', () =>{
+    it('It should have a method create which takes an item and a callback, if no cb provided then error is thrown', () =>{
         dataSource.should.have.property('create');
     });
     it('It should have a method update', () =>{

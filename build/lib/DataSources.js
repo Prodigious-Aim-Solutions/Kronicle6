@@ -18,10 +18,11 @@ var DataSources = exports.DataSources = (function (Module) {
         _classCallCheck(this, DataSources);
 
         this.name = "DataSources";
-        this.sources = sources;
+        this.sources = {};
         PubSub.publish(events.BeforeDataSourcesLoaded);
         for (var index in sources) {
-            this.sources[index] = sources[index];
+            console.log(sources[index].name);
+            this.sources[sources[index].name] = sources[index].source;
             PubSub.publish(events.DataSourceLoaded, sources[index]);
         }
         PubSub.publish(events.AfterDataSourcesLoaded);
