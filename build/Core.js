@@ -14,7 +14,7 @@ var Core = exports.Core = function Core(modules) {
     this.addedModules = {};
     PubSub.publish(events.BeforeModulesLoad, modules);
     for (var mod in modules) {
-        modules[mod].initialize();
+        //modules[mod].initialize();
         this.addedModules[modules[mod].name] = modules[mod];
         PubSub.publish(events.ModuleLoaded, modules[mod]);
     }

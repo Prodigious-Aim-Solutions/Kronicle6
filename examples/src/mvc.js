@@ -32,12 +32,14 @@ var listController = new Controller({
             }
         }
     }),
-    model: dataSources['ArrayDataSource'],
-    initialize: () => {
+    model: dataSources.sources.ArrayDataSource,
+    initialize: function () {
+        console.log('Initialize Controller');
         this.model.onCreate(this.view.render);
         this.model.onUpdate(this.view.render);
         this.model.onRemove(this.view.render);
-        this.model.onGet(this.view.render);        
+        this.model.onGet(this.view.render);
+        dataSources.sources.ArrayDataSource.create('test');
     }
 });
 var controllers = [listController]; //need controller collection wrapper, maybe router?

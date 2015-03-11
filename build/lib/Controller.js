@@ -14,6 +14,8 @@ var Controller = exports.Controller = (function (Module) {
 
         this.model = args.model;
         this.view = args.view;
+        this.initialize = args.initialize || _get(Object.getPrototypeOf(Controller.prototype), "initialize", this);
+        this.initialize = this.initialize.bind(this);
         _get(Object.getPrototypeOf(Controller.prototype), "constructor", this).call(this, { name: args.name + "Controller" });
     }
 

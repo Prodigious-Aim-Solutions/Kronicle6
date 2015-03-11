@@ -37,12 +37,14 @@ var listController = new Controller({
             }
         }
     }),
-    model: dataSources.ArrayDataSource,
+    model: dataSources.sources.ArrayDataSource,
     initialize: function () {
-        undefined.model.onCreate(undefined.view.render);
-        undefined.model.onUpdate(undefined.view.render);
-        undefined.model.onRemove(undefined.view.render);
-        undefined.model.onGet(undefined.view.render);
+        console.log("Initialize Controller");
+        this.model.onCreate(this.view.render);
+        this.model.onUpdate(this.view.render);
+        this.model.onRemove(this.view.render);
+        this.model.onGet(this.view.render);
+        dataSources.sources.ArrayDataSource.create("test");
     }
 });
 var controllers = [listController]; //need controller collection wrapper, maybe router?

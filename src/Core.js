@@ -7,7 +7,7 @@ export class Core {
         this.addedModules = {};
         PubSub.publish(events.BeforeModulesLoad, modules);
         for(let mod in modules){
-            modules[mod].initialize();
+            //modules[mod].initialize();
             this.addedModules[modules[mod].name] = modules[mod];
             PubSub.publish(events.ModuleLoaded, modules[mod]);
         }

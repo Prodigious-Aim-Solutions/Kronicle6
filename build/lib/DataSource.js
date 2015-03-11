@@ -100,35 +100,35 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         onLogin: {
-            value: function onLogin() {
+            value: function onLogin(cb) {
                 PubSub.subscribe(events.OnLogin, cb);
             },
             writable: true,
             configurable: true
         },
         onCreate: {
-            value: function onCreate() {
+            value: function onCreate(cb) {
                 PubSub.subscribe(events.OnCreate, cb);
             },
             writable: true,
             configurable: true
         },
         onUpdate: {
-            value: function onUpdate() {
+            value: function onUpdate(cb) {
                 PubSub.subscribe(events.OnUpdate, cb);
             },
             writable: true,
             configurable: true
         },
         onRemove: {
-            value: function onRemove() {
+            value: function onRemove(cb) {
                 PubSub.subscribe(events.OnRemove, cb);
             },
             writable: true,
             configurable: true
         },
         onGet: {
-            value: function onGet() {
+            value: function onGet(cb) {
                 PubSub.subscribe(events.OnGet, cb);
             },
             writable: true,

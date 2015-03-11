@@ -51,23 +51,23 @@ export class DataSource extends Module {
         });
     }
     
-    onLogin() {
+    onLogin(cb) {
          PubSub.subscribe(events.OnLogin, cb);
     }
     
-    onCreate() {
+    onCreate(cb) {
         PubSub.subscribe(events.OnCreate, cb);
     }
     
-    onUpdate() {
+    onUpdate(cb) {
         PubSub.subscribe(events.OnUpdate, cb);
     }
     
-    onRemove() {
+    onRemove(cb) {
         PubSub.subscribe(events.OnRemove, cb);
     }
     
-    onGet() {
+    onGet(cb) {
         PubSub.subscribe(events.OnGet, cb);
     }
     
