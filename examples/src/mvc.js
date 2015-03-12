@@ -34,7 +34,6 @@ var listController = new Controller({
     }),
     model: dataSources.sources.ArrayDataSource,
     initialize: function () {
-        console.log('Initialize Controller');
         this.model.onCreate(this.view.render);
         this.model.onUpdate(this.view.render);
         this.model.onRemove(this.view.render);

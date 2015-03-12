@@ -29,7 +29,7 @@ describe("Core", function () {
 });
 
 describe("Kronicle", function () {
-    var mod = new Module();
+    var mod = new Module({ name: "test" });
     var kronicle = new Kronicle().build({ modules: [mod] });
 
     it("It should have a method initialize", function () {
@@ -56,8 +56,13 @@ describe("Kronicle", function () {
         kronicle.should.have.property("ready");
     });
 
-    it("It should have a method start", function () {
+    it("It should have a method start which takes a callback that receives an object which contains loadedModules", function (done) {
         kronicle.should.have.property("start");
+        kronicle.start(function (app) {
+            app.should.exist;
+            app.should.have.property("test");
+            done();
+        });
     });
 
     it("It should have a method build", function () {

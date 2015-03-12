@@ -69,7 +69,7 @@ var Kronicle = exports.Kronicle = (function () {
         },
         start: {
             value: function start(cb) {
-                cb.call(this);
+                cb.call(this, this.core.addedModules);
                 PubSub.publish(events.Start);
                 return this;
             },

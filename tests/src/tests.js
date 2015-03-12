@@ -25,7 +25,7 @@ describe('Core', () => {
 });
 
 describe('Kronicle', () => {
-    var mod = new Module();
+    var mod = new Module({name: 'test'});
     var kronicle = new Kronicle().build({modules: [mod]});
     
     it('It should have a method initialize', () => {
@@ -53,8 +53,13 @@ describe('Kronicle', () => {
         kronicle.should.have.property('ready');
     });
     
-    it('It should have a method start', () => {        
+    it('It should have a method start which takes a callback that receives an object which contains loadedModules', (done) => {    
         kronicle.should.have.property('start');
+        kronicle.start((app) =>{
+            app.should.exist;
+            app.should.have.property('test');
+            done();
+        });
     });
     
     it('It should have a method build', () => {
