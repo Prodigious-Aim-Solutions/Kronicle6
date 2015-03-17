@@ -3,7 +3,8 @@ const events = {
     BeforeModulesLoad: "BeforeModulesLoad",
     ModuleLoaded: "ModuleLoaded",
     AfterModulesLoad: "AfterModulesLoad",
-    Ready: "Ready"
+    Ready: "Ready",
+    Start: "Start"
 };
 
 export {events};

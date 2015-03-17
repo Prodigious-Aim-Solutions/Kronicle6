@@ -1,6 +1,6 @@
 "use strict";
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
 var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
 
@@ -8,19 +8,29 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var Core = require("./Core.js").Core;
 var events = require("./EventTypes.js").events;
-var PubSub = _interopRequireWildcard(require("pubsub-js"));
+var PubSub = _interopRequire(require("pubsub-js"));
 
 var Kronicle = exports.Kronicle = (function () {
-    function Kronicle(args) {
+    function Kronicle() {
         _classCallCheck(this, Kronicle);
 
-        this.core = new Core(args.modules);
+        this.core = null;
     }
 
     _prototypeProperties(Kronicle, null, {
+        build: {
+            value: function build() {
+                var args = arguments[0] === undefined ? { modules: [] } : arguments[0];
+                this.core = new Core(args.modules);
+                return this;
+            },
+            writable: true,
+            configurable: true
+        },
         initialize: {
             value: function initialize(cb) {
                 PubSub.subscribe(events.Initialized, cb);
+                return this;
             },
             writable: true,
             configurable: true
@@ -28,6 +38,7 @@ var Kronicle = exports.Kronicle = (function () {
         beforeModulesLoad: {
             value: function beforeModulesLoad(cb) {
                 PubSub.subscribe(events.BeforeModulesLoad, cb);
+                return this;
             },
             writable: true,
             configurable: true
@@ -35,6 +46,7 @@ var Kronicle = exports.Kronicle = (function () {
         moduleLoaded: {
             value: function moduleLoaded(cb) {
                 PubSub.subscribe(events.ModuleLoaded, cb);
+                return this;
             },
             writable: true,
             configurable: true
@@ -42,6 +54,7 @@ var Kronicle = exports.Kronicle = (function () {
         afterModulesLoad: {
             value: function afterModulesLoad(cb) {
                 PubSub.subscribe(events.AfterModulesLoad, cb);
+                return this;
             },
             writable: true,
             configurable: true
@@ -49,6 +62,16 @@ var Kronicle = exports.Kronicle = (function () {
         ready: {
             value: function ready(cb) {
                 PubSub.subscribe(events.Ready, cb);
+                return this;
+            },
+            writable: true,
+            configurable: true
+        },
+        start: {
+            value: function start(cb) {
+                cb.call(this, this.core.addedModules);
+                PubSub.publish(events.Start);
+                return this;
             },
             writable: true,
             configurable: true

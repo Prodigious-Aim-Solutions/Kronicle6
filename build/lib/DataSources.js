@@ -17,11 +17,12 @@ var DataSources = exports.DataSources = (function (Module) {
         var sources = arguments[0] === undefined ? [] : arguments[0];
         _classCallCheck(this, DataSources);
 
-        this.sources = sources;
+        this.name = "DataSources";
+        this.sources = {};
         PubSub.publish(events.BeforeDataSourcesLoaded);
         for (var index in sources) {
-            this.sources[index] = source;
-            PubSub.publish(events.DataSourceLoaded, source);
+            this.sources[sources[index].name] = sources[index];
+            PubSub.publish(events.DataSourceLoaded, sources[index]);
         }
         PubSub.publish(events.AfterDataSourcesLoaded);
         return this;
@@ -60,7 +61,7 @@ var DataSources = exports.DataSources = (function (Module) {
         },
         removeDataSource: {
             value: function removeDataSource(name) {
-                this.sources[source.name] = null;
+                this.sources[name] = null;
             },
             writable: true,
             configurable: true

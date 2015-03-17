@@ -12,7 +12,7 @@ describe("Controller", function () {
     var controller = new Controller({
         name: "Main",
         view: new View("Main"),
-        dataSource: new DataSource(new ArrayDataSource(), "ArrayDataSource")
+        model: new DataSource(new ArrayDataSource(), "ArrayDataSource")
     });
     it("It should contain a property model", function () {
         controller.should.have.property("model");

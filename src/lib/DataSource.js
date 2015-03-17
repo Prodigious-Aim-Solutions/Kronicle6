@@ -3,64 +3,77 @@ import {events} from './DataSourcesEvents.js';
 import {default as PubSub} from 'pubsub-js';
 
 export class DataSource extends Module {
-    initialize(source, name) {
-        this.source = source || {};
-        this.name = this.source.name;
+    constructor(args = {source: undefined, name: ''}) {
+        let emptySource = {
+            login: (user, pass, cb) => { cb(); return; },
+            create: (item, cb) => { cb(); return; },
+            update: (item, cb) => { cb(); return; },
+            remove: (item, cb) => { cb(); return; },
+            get: (item, cb) => { cb(); return; }
+        };
+        this.source = args.source || emptySource;
+        super({name: args.name});
+        return this;
     }
     
     login(user, pass, cb) {
-        this.source.login(user, pass, () => {
-            cb();
+        this.source.login(user, pass, (err, data) => {
+            this._doCbIfExists(cb, err, data);
             PubSub.publish(events.OnLogin, user, pass, events.OnLogin);
-        });
-        
+        });        
     }
     
     create(item, cb) {
-        this.source.create(item, () => {
-            cb();
+        this.source.create(item, (err, data) => {
+            this._doCbIfExists(cb, err, data);
             PubSub.publish(events.OnCreate, item, events.OnCreate);
         });        
     }
     
     update(item, cb) {
-        this.source.update(item,() => {
-            cb();
+        this.source.update(item, (err, data) => {
+            this._doCbIfExists(cb, err, data);
             PubSub.publish(events.OnUpdate, item, events.OnUpdate);
         });        
     }
     
     remove(item, cb) {
-        this.source.remove(item, ()=> {
-            cb();
+        this.source.remove(item, (err, data)=> {
+            this._doCbIfExists(cb, err, data);
             PubSub.publish(events.OnRemove, item, events.OnRemove);
         });        
     }
     
     get(item, cb) {
-        this.source.get(item, () => {
-            cb();
+        this.source.get(item, (err, data) => {
+            this._doCbIfExists(cb, err, data);
             PubSub.publish(events.OnGet, item, events.OnGet);
         });
     }
     
-    onLogin() {
+    onLogin(cb) {
          PubSub.subscribe(events.OnLogin, cb);
     }
     
-    onCreate() {
+    onCreate(cb) {
         PubSub.subscribe(events.OnCreate, cb);
     }
     
-    onUpdate() {
+    onUpdate(cb) {
         PubSub.subscribe(events.OnUpdate, cb);
     }
     
-    onRemove() {
+    onRemove(cb) {
         PubSub.subscribe(events.OnRemove, cb);
     }
     
-    onGet() {
+    onGet(cb) {
         PubSub.subscribe(events.OnGet, cb);
+    }
+    
+    _doCbIfExists(cb, err, data) {
+        if(cb){
+            cb(err, data);
+        }
     }
 }

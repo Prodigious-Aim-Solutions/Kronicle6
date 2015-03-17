@@ -4,11 +4,12 @@ import {events} from './DataSourcesEvents.js';
 
 export class DataSources extends Module {
     constructor(sources = []){
-        this.sources = sources;
+        this.name = "DataSources";
+        this.sources = { };
         PubSub.publish(events.BeforeDataSourcesLoaded);
-        for(let index in sources){            
-            this.sources[index] = source;
-            PubSub.publish(events.DataSourceLoaded, source);
+        for(let index in sources) {
+            this.sources[sources[index].name] = sources[index];
+            PubSub.publish(events.DataSourceLoaded, sources[index]);
         }
         PubSub.publish(events.AfterDataSourcesLoaded);
         return this;
@@ -31,6 +32,6 @@ export class DataSources extends Module {
     }
     
     removeDataSource(name){
-        this.sources[source.name] = null;
+        this.sources[name] = null;
     }
 }

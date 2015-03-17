@@ -5,7 +5,8 @@ var events = {
     BeforeModulesLoad: "BeforeModulesLoad",
     ModuleLoaded: "ModuleLoaded",
     AfterModulesLoad: "AfterModulesLoad",
-    Ready: "Ready"
+    Ready: "Ready",
+    Start: "Start"
 };
 
 exports.events = events;

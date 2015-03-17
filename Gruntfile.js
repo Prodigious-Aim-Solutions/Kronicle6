@@ -26,6 +26,11 @@ module.exports = function(grunt) {
                 'tests/controller.tests.js': 'tests/src/controller.tests.js',
                 'tests/component.tests.js': 'tests/src/component.tests.js'
             }            
+        },
+        examples: {
+            files: {
+                'examples/mvc.js': 'examples/src/mvc.js'
+            }      
         }
     },
     mochacli: {
@@ -39,6 +44,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-babel');
   //grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-mocha-cli');
+    
+  grunt.registerTask('examples', ['babel:examples']);
 
   grunt.registerTask('test', ['babel:dist', 'babel:test', 'mochacli']);
 

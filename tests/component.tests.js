@@ -26,4 +26,21 @@ describe("Component", function () {
     it("It should contain a property components which is an array", function () {
         view.should.have.property("components").and.be.an.Array;
     });
+
+    it("It should contain a property modules which is an object", function () {
+        view.should.have.property("modules").and.be.an.Object;
+    });
+
+    it("It should contain a property addComponents which adds components and allows access by name", function () {
+        view.should.have.property("addComponents");
+        var comp = new Component({
+            name: "comp",
+            template: function () {
+                return "comp";
+            },
+            components: []
+        });
+        view.addComponents(comp);
+        view.modules.components.compComponent.should.exist;
+    });
 });

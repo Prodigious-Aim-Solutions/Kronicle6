@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
 var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
 
 var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
@@ -9,14 +11,22 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 var Module = require("../Module.js").Module;
+var util = _interopRequire(require("util"));
+
 var Component = exports.Component = (function (Module) {
-    function Component(args) {
+    function Component() {
+        var args = arguments[0] === undefined ? { components: [], template: function () {
+                return "";
+            }, name: "" } : arguments[0];
         _classCallCheck(this, Component);
 
-        this.components = args.components || [];
-        this.template = args.template || function () {
-            return "";
+        this.template = args.template;
+        this.modules = {
+            components: {}
         };
+        if (args.components) {
+            this.addComponents(args.components);
+        }
         _get(Object.getPrototypeOf(Component.prototype), "constructor", this).call(this, { name: args.name + "Component" });
     }
 
@@ -28,6 +38,31 @@ var Component = exports.Component = (function (Module) {
                 if (!err) {
                     return this.template(data);
                 }
+            },
+            writable: true,
+            configurable: true
+        },
+        addComponents: {
+            value: function addComponents(components) {
+                var aryComponents = components;
+                if (!(components instanceof Array)) {
+                    aryComponents = [components];
+                }
+                this.components = components;
+                for (var index in aryComponents) {
+                    if (aryComponents[index].name) {
+                        this.addComponentModule(aryComponents[index]);
+                    } else {
+                        throw new Error("Error: components must have a unique name");
+                    }
+                }
+            },
+            writable: true,
+            configurable: true
+        },
+        addComponentModule: {
+            value: function addComponentModule(component) {
+                this.modules.components[component.name] = component;
             },
             writable: true,
             configurable: true

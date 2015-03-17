@@ -11,12 +11,12 @@ var Core = exports.Core = function Core(modules) {
     _classCallCheck(this, Core);
 
     PubSub.publish(events.Initialized);
-    this.addedModules = [];
+    this.addedModules = {};
     PubSub.publish(events.BeforeModulesLoad, modules);
     for (var mod in modules) {
-        modules[mod].initialize();
-        this.addedModules.push(mod);
-        PubSub.publish(events.ModuleLoaded, mod);
+        //modules[mod].initialize();
+        this.addedModules[modules[mod].name] = modules[mod];
+        PubSub.publish(events.ModuleLoaded, modules[mod]);
     }
     PubSub.publish(events.AfterModulesLoad, modules);
     PubSub.publish(events.Ready);
@@ -25,5 +25,3 @@ var Core = exports.Core = function Core(modules) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-//export { Core };

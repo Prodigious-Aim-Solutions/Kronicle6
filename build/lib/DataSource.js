@@ -4,6 +4,8 @@ var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["defau
 
 var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
 
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
 var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
@@ -14,28 +16,39 @@ var PubSub = _interopRequire(require("pubsub-js"));
 
 var DataSource = exports.DataSource = (function (Module) {
     function DataSource() {
+        var args = arguments[0] === undefined ? { source: undefined, name: "" } : arguments[0];
         _classCallCheck(this, DataSource);
 
-        if (Module != null) {
-            Module.apply(this, arguments);
-        }
+        var emptySource = {
+            login: function (user, pass, cb) {
+                cb();return;
+            },
+            create: function (item, cb) {
+                cb();return;
+            },
+            update: function (item, cb) {
+                cb();return;
+            },
+            remove: function (item, cb) {
+                cb();return;
+            },
+            get: function (item, cb) {
+                cb();return;
+            }
+        };
+        this.source = args.source || emptySource;
+        _get(Object.getPrototypeOf(DataSource.prototype), "constructor", this).call(this, { name: args.name });
+        return this;
     }
 
     _inherits(DataSource, Module);
 
     _prototypeProperties(DataSource, null, {
-        initialize: {
-            value: function initialize(source, name) {
-                this.source = source || {};
-                this.name = this.source.name;
-            },
-            writable: true,
-            configurable: true
-        },
         login: {
             value: function login(user, pass, cb) {
-                this.source.login(user, pass, function () {
-                    cb();
+                var _this = this;
+                this.source.login(user, pass, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnLogin, user, pass, events.OnLogin);
                 });
             },
@@ -44,8 +57,9 @@ var DataSource = exports.DataSource = (function (Module) {
         },
         create: {
             value: function create(item, cb) {
-                this.source.create(item, function () {
-                    cb();
+                var _this = this;
+                this.source.create(item, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnCreate, item, events.OnCreate);
                 });
             },
@@ -54,8 +68,9 @@ var DataSource = exports.DataSource = (function (Module) {
         },
         update: {
             value: function update(item, cb) {
-                this.source.update(item, function () {
-                    cb();
+                var _this = this;
+                this.source.update(item, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnUpdate, item, events.OnUpdate);
                 });
             },
@@ -64,8 +79,9 @@ var DataSource = exports.DataSource = (function (Module) {
         },
         remove: {
             value: function remove(item, cb) {
-                this.source.remove(item, function () {
-                    cb();
+                var _this = this;
+                this.source.remove(item, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnRemove, item, events.OnRemove);
                 });
             },
@@ -74,8 +90,9 @@ var DataSource = exports.DataSource = (function (Module) {
         },
         get: {
             value: function get(item, cb) {
-                this.source.get(item, function () {
-                    cb();
+                var _this = this;
+                this.source.get(item, function (err, data) {
+                    _this._doCbIfExists(cb, err, data);
                     PubSub.publish(events.OnGet, item, events.OnGet);
                 });
             },
@@ -83,36 +100,45 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         onLogin: {
-            value: function onLogin() {
+            value: function onLogin(cb) {
                 PubSub.subscribe(events.OnLogin, cb);
             },
             writable: true,
             configurable: true
         },
         onCreate: {
-            value: function onCreate() {
+            value: function onCreate(cb) {
                 PubSub.subscribe(events.OnCreate, cb);
             },
             writable: true,
             configurable: true
         },
         onUpdate: {
-            value: function onUpdate() {
+            value: function onUpdate(cb) {
                 PubSub.subscribe(events.OnUpdate, cb);
             },
             writable: true,
             configurable: true
         },
         onRemove: {
-            value: function onRemove() {
+            value: function onRemove(cb) {
                 PubSub.subscribe(events.OnRemove, cb);
             },
             writable: true,
             configurable: true
         },
         onGet: {
-            value: function onGet() {
+            value: function onGet(cb) {
                 PubSub.subscribe(events.OnGet, cb);
+            },
+            writable: true,
+            configurable: true
+        },
+        _doCbIfExists: {
+            value: function _doCbIfExists(cb, err, data) {
+                if (cb) {
+                    cb(err, data);
+                }
             },
             writable: true,
             configurable: true
