@@ -1,13 +1,11 @@
 var kronApp = require('./mvc').kronApp;
 
 var http = require('http');
-//console.log('start server');
+
 kronApp.start(function(app) {
-    //console.log(this);
-    //var app = this;
 
     http.createServer(function (req, res) {
-
+        console.log('start server');
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end(app.ListItemsController.view.render(null, 'thing'));
         

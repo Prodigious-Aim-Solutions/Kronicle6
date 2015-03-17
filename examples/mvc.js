@@ -43,10 +43,9 @@ var listController = new Controller({
         this.model.onUpdate(this.view.render);
         this.model.onRemove(this.view.render);
         this.model.onGet(this.view.render);
-        dataSources.sources.ArrayDataSource.create("test");
     }
 });
-var controllers = [listController]; //need controller collection wrapper, maybe router?
+
 var kronApp = new Kronicle().build({ modules: [dataSources, listController] });
 
 exports.kronApp = kronApp;

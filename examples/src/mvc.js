@@ -7,8 +7,8 @@ import {Controller} from '../build/lib/Controller.js';
 import {Component} from '../build/lib/Component.js';
 
 var dataSources = new DataSources([new DataSource({source: new ArrayDataSource(), name: 'ArrayDataSource'})]);
-dataSources.sources.ArrayDataSource.create('test', () =>{
-    console.log('test created')
+dataSources.sources.ArrayDataSource.create('test', () => {
+    console.log('test created');
 });
 var listController = new Controller({
     name: 'ListItems',
@@ -38,10 +38,9 @@ var listController = new Controller({
         this.model.onUpdate(this.view.render);
         this.model.onRemove(this.view.render);
         this.model.onGet(this.view.render);
-        dataSources.sources.ArrayDataSource.create('test');
     }
 });
-var controllers = [listController]; //need controller collection wrapper, maybe router?
+
 var kronApp = new Kronicle().build({modules:[dataSources, listController]});
 
 export { kronApp };
