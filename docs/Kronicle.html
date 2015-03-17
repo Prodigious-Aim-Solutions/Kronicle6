@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Main Kronicle Class</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="Core.html">
+                  Core.js
+                </a>
+              
+                
+                <a class="source" href="EventTypes.html">
+                  EventTypes.js
+                </a>
+              
+                
+                <a class="source" href="Kronicle.html">
+                  Kronicle.js
+                </a>
+              
+                
+                <a class="source" href="Module.html">
+                  Module.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>import {Core} from <span class="hljs-string">'./Core.js'</span>;
+import {events} from <span class="hljs-string">'./EventTypes.js'</span>;
+import {<span class="hljs-keyword">default</span> as PubSub} from <span class="hljs-string">'pubsub-js'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="main-kronicle-class">Main Kronicle Class</h1>
+<p>The main Kronicle Class, constructor t</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>kes no <span class="hljs-built_in">arguments</span>, initializes the core <span class="hljs-keyword">with</span> a <span class="hljs-literal">null</span> value</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Use build method to setup a core with an array of Kronicle modules passed as an argument</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>export <span class="hljs-keyword">class</span> Kronicle {
+    constructor(){
+        <span class="hljs-keyword">this</span>.core = <span class="hljs-literal">null</span>;
+    }
+    
+    build (args = { modules: [] }) {
+        <span class="hljs-keyword">this</span>.core = <span class="hljs-keyword">new</span> Core(args.modules);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+    
+    initialize(cb) {
+        PubSub.subscribe(events.Initialized, cb);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+    
+    beforeModulesLoad(cb)  {
+        PubSub.subscribe(events.BeforeModulesLoad, cb);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+    
+    moduleLoaded(cb) {
+        PubSub.subscribe(events.ModuleLoaded, cb);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+    
+    afterModulesLoad(cb){
+        PubSub.subscribe(events.AfterModulesLoad, cb);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+    
+    ready(cb) {
+        PubSub.subscribe(events.Ready, cb);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+    
+    start(cb){
+        cb.call(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>.core.addedModules);
+        PubSub.publish(events.Start);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
