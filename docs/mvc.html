@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>MVC Example</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
+              <a class="source" href="flux.html">
+                flux.js
+              </a>
+            
+              
+              <a class="source" href="mvc.html">
+                mvc.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="mvc-example">MVC Example</h1>
+<p>This is a very simple example of an MVC web app built with Kronicle6 for use in node.js</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+import {Kronicle} from <span class="hljs-string">'../build/Kronicle.js'</span>;
+import {DataSource} from <span class="hljs-string">'../build/lib/DataSource.js'</span>;
+import {DataSources} from <span class="hljs-string">'../build/lib/DataSources.js'</span>;
+import {ArrayDataSource} from <span class="hljs-string">'../build/lib/ArrayDataSource.js'</span>;
+import {View} from <span class="hljs-string">'../build/lib/View.js'</span>;
+import {Controller} from <span class="hljs-string">'../build/lib/Controller.js'</span>;
+import {Component} from <span class="hljs-string">'../build/lib/Component.js'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Create a DataSources object that contains an ArrayDataSource and push a test item on to it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> dataSources = <span class="hljs-keyword">new</span> DataSources([<span class="hljs-keyword">new</span> DataSource({source: <span class="hljs-keyword">new</span> ArrayDataSource(), name: <span class="hljs-string">'ArrayDataSource'</span>})]);
+dataSources.sources.ArrayDataSource.create(<span class="hljs-string">'test'</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'test created'</span>);
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Create a simple list Controller with the name ListItems.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> listController = <span class="hljs-keyword">new</span> Controller({
+    name: <span class="hljs-string">'ListItems'</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>View for Controller is also called ListItems, will be ListItemsView internally.
+Will render a <ul> containing ListItem components.
+Add a new Component called ListItem with a simple template to render the item as an <li>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    view: <span class="hljs-keyword">new</span> View({
+        name: <span class="hljs-string">'ListItems'</span>,
+        template: (data) =&gt; { <span class="hljs-keyword">return</span> <span class="hljs-string">"&lt;ul&gt;{list}&lt;/ul&gt;"</span>.replace(<span class="hljs-string">'{list}'</span>, data); },
+        components: [
+            <span class="hljs-keyword">new</span> Component({
+                name: <span class="hljs-string">'ListItem'</span>,
+                template: (data) =&gt; { <span class="hljs-keyword">return</span> <span class="hljs-string">"&lt;li&gt;{data}&lt;/li&gt;"</span>.replace(<span class="hljs-string">'{data}'</span>, data); },
+                components: []
+            })
+        ],
+        render: (err, data) =&gt; {
+            <span class="hljs-keyword">var</span> output =<span class="hljs-string">""</span>;
+            <span class="hljs-keyword">if</span>(data) {
+                <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> data){
+                    output += <span class="hljs-keyword">this</span>.components.modules.ListItemComp.render(data[i]);
+                }
+                <span class="hljs-keyword">return</span> output;
+            }
+        }
+    }),</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Connect the ArrayDataSource as model</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    model: dataSources.sources.ArrayDataSource,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Initialize and set to re-render each time the onCreate, onUpdate, onRemove, onGet events are triggered</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    initialize: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.model.onCreate(<span class="hljs-keyword">this</span>.view.render);
+        <span class="hljs-keyword">this</span>.model.onUpdate(<span class="hljs-keyword">this</span>.view.render);
+        <span class="hljs-keyword">this</span>.model.onRemove(<span class="hljs-keyword">this</span>.view.render);
+        <span class="hljs-keyword">this</span>.model.onGet(<span class="hljs-keyword">this</span>.view.render);
+    }
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Create a new Kronicle app called kronApp that has the dataSources and listController accessible internally</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> kronApp = <span class="hljs-keyword">new</span> Kronicle().build({modules:[dataSources, listController]});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Export for use</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>export { kronApp };</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

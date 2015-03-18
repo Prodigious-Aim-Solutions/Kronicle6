@@ -42,6 +42,9 @@ module.exports = function(grunt) {
     docco: {
       debug: {
         src: ['src/**/*.js']
+      },
+      examples: {
+        src: ['examples/src/*.js', 'examples/index.js']
       }
     }
   });
