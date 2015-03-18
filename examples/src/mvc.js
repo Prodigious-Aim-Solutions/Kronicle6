@@ -20,8 +20,8 @@ dataSources.sources.ArrayDataSource.create('test', () => {
 var listController = new Controller({
     name: 'ListItems',
     // View for Controller is also called ListItems, will be ListItemsView internally.
-    // Will render a <ul> containing ListItem components.
-    // Add a new Component called ListItem with a simple template to render the item as an <li>.
+    // Will render a ul containing ListItem components.
+    // Add a new Component called ListItem with a simple template to render the item as an li.
     view: new View({
         name: 'ListItems',
         template: (data) => { return "<ul>{list}</ul>".replace('{list}', data); },

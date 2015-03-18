@@ -5,7 +5,6 @@
 export class ArrayDataSource {
     constructor() {
         this.data = [];
-        //super.initialize(source, name);
     }
     
     // ## login method

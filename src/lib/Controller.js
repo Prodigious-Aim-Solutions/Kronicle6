@@ -1,6 +1,7 @@
 import {Module} from '../Module.js';
 
 // # Kronicle.Controller class
+// depends: [Kronicle.Module](Module.html)
 // This class is used to handle events from users and dispatch the proper response via view and model.
 // The constructor takes an args object which contains the following properties:
 // - model - the data model associated with the controller.
