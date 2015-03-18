@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>Main Kronicle Class</title>
+  <title>Kronicle.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -16,35 +16,74 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page_wrapper">
-            <div id="jump_page">
+          <div id="jump_page">
+            
               
-                
-                <a class="source" href="Core.html">
-                  Core.js
-                </a>
+              <a class="source" href="Core.html">
+                Core.js
+              </a>
+            
               
-                
-                <a class="source" href="EventTypes.html">
-                  EventTypes.js
-                </a>
+              <a class="source" href="EventTypes.html">
+                EventTypes.js
+              </a>
+            
               
-                
-                <a class="source" href="Kronicle.html">
-                  Kronicle.js
-                </a>
+              <a class="source" href="Kronicle.html">
+                Kronicle.js
+              </a>
+            
               
-                
-                <a class="source" href="Module.html">
-                  Module.js
-                </a>
+              <a class="source" href="Module.html">
+                Module.js
+              </a>
+            
               
-            </div>
+              <a class="source" href="ArrayDataSource.html">
+                ArrayDataSource.js
+              </a>
+            
+              
+              <a class="source" href="Component.html">
+                Component.js
+              </a>
+            
+              
+              <a class="source" href="Controller.html">
+                Controller.js
+              </a>
+            
+              
+              <a class="source" href="DataSource.html">
+                DataSource.js
+              </a>
+            
+              
+              <a class="source" href="DataSources.html">
+                DataSources.js
+              </a>
+            
+              
+              <a class="source" href="DataSourcesEvents.html">
+                DataSourcesEvents.js
+              </a>
+            
+              
+              <a class="source" href="View.html">
+                View.js
+              </a>
+            
           </div>
         </li>
       </ul>
     
     <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>Kronicle.js</h1>
+              </div>
+          </li>
         
         
         
@@ -71,11 +110,20 @@ import {<span class="hljs-keyword">default</span> as PubSub} from <span class="h
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
               <h1 id="main-kronicle-class">Main Kronicle Class</h1>
-<p>The main Kronicle Class, constructor t</p>
+<p>depends: <a href="Core.html">Kronicle.Core</a>, <a href="EventTypes.html">Kronicle.EventTypes</a>, pubsub-js
+The main Kronicle Class, constructor takes no arguments 
+The class has one property</p>
+<ul>
+<li>core - the core object initialized with a null value.
+Use build method to setup a core with an array of Kronicle modules passed as an argument.</li>
+</ul>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>kes no <span class="hljs-built_in">arguments</span>, initializes the core <span class="hljs-keyword">with</span> a <span class="hljs-literal">null</span> value</pre></div></div>
+            <div class="content"><div class='highlight'><pre>export <span class="hljs-keyword">class</span> Kronicle {
+    constructor(){
+        <span class="hljs-keyword">this</span>.core = <span class="hljs-literal">null</span>;
+    }</pre></div></div>
             
         </li>
         
@@ -86,46 +134,133 @@ import {<span class="hljs-keyword">default</span> as PubSub} from <span class="h
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Use build method to setup a core with an array of Kronicle modules passed as an argument</p>
+              <h2 id="build-method">build method</h2>
+<p>Takes an array of Kronicle Modules as an argument and initializes the core. Returns a reference to the object.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>export <span class="hljs-keyword">class</span> Kronicle {
-    constructor(){
-        <span class="hljs-keyword">this</span>.core = <span class="hljs-literal">null</span>;
-    }
-    
-    build (args = { modules: [] }) {
+            <div class="content"><div class='highlight'><pre>    build (args = { modules: [] }) {
         <span class="hljs-keyword">this</span>.core = <span class="hljs-keyword">new</span> Core(args.modules);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-    }
-    
-    initialize(cb) {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="initialize-method">initialize method</h2>
+<p>Takes a callback as an argument.
+Callback is called when Kronicle Core is initialized.    </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    initialize(cb) {
         PubSub.subscribe(events.Initialized, cb);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-    }
-    
-    beforeModulesLoad(cb)  {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="beforemodulesload-method">beforeModulesLoad method</h2>
+<p>Takes a callback as an argument.
+Callback is called before any Kronicle modules are loaded, callback receives all modules as an argument ie cb(modules).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    beforeModulesLoad(cb)  {
         PubSub.subscribe(events.BeforeModulesLoad, cb);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-    }
-    
-    moduleLoaded(cb) {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="moduleloaded-method">moduleLoaded method</h2>
+<p>Takes a callback as an argument.
+Callback is called as each module is loaded, callback receives module as an argument ie cb(module)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    moduleLoaded(cb) {
         PubSub.subscribe(events.ModuleLoaded, cb);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-    }
-    
-    afterModulesLoad(cb){
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="aftermodulesload-method">afterModulesLoad method</h2>
+<p>Takes a callback as an argument.
+Callback is called after all modules are loaded, callback receives all modules as argument ie cb(modules)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    afterModulesLoad(cb){
         PubSub.subscribe(events.AfterModulesLoad, cb);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-    }
-    
-    ready(cb) {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h2 id="ready-method">ready method</h2>
+<p>Takes a callback as an argument.
+Callback is called after all modules are loaded an Kronicle is ready for use.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    ready(cb) {
         PubSub.subscribe(events.Ready, cb);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-    }
-    
-    start(cb){
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2 id="start-method">start method</h2>
+<p>Takes a callback as an argument.
+Callback is called when Kronicle is ready to be used, callback receives the core with added modules as a callback.
+Should be used as main entry point for kronicle apps.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    start(cb){
         cb.call(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>.core.addedModules);
         PubSub.publish(events.Start);
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;

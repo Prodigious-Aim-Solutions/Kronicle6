@@ -3,8 +3,10 @@ import {events} from './EventTypes.js';
 import {default as PubSub} from 'pubsub-js';
 
 // # Main Kronicle Class
-// depends: Kronicle.Core, Kronicle.EventTypes, pubsub-js
-// The main Kronicle Class, constructor takes no arguments, initializes the core with a null value.
+// depends: [Kronicle.Core](Core.html), [Kronicle.EventTypes](EventTypes.html), pubsub-js
+// The main Kronicle Class, constructor takes no arguments 
+// The class has one property
+//  - core - the core object initialized with a null value.
 // Use build method to setup a core with an array of Kronicle modules passed as an argument.
 export class Kronicle {
     constructor(){
@@ -12,7 +14,7 @@ export class Kronicle {
     }
     
     // ## build method
-    // Takes an array f Kronicle modules as an argument and initializes the core.Returns a reference to the object.
+    // Takes an array of Kronicle Modules as an argument and initializes the core. Returns a reference to the object.
     build (args = { modules: [] }) {
         this.core = new Core(args.modules);
         return this;
@@ -21,7 +23,8 @@ export class Kronicle {
 
     // ## initialize method
     // Takes a callback as an argument.
-    // Callback is called when Kronicle Core is initialized.    initialize(cb) {
+    // Callback is called when Kronicle Core is initialized.    
+    initialize(cb) {
         PubSub.subscribe(events.Initialized, cb);
         return this;
     }

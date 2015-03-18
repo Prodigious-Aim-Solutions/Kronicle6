@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>ArrayDataSource.js</title>
+  <title>Kronicle.ArrayDataSource class</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -16,56 +16,68 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page_wrapper">
-            <div id="jump_page">
+          <div id="jump_page">
+            
               
-                
-                <a class="source" href="ArrayDataSource.html">
-                  ArrayDataSource.js
-                </a>
+              <a class="source" href="Core.html">
+                Core.js
+              </a>
+            
               
-                
-                <a class="source" href="Component.html">
-                  Component.js
-                </a>
+              <a class="source" href="EventTypes.html">
+                EventTypes.js
+              </a>
+            
               
-                
-                <a class="source" href="Controller.html">
-                  Controller.js
-                </a>
+              <a class="source" href="Kronicle.html">
+                Kronicle.js
+              </a>
+            
               
-                
-                <a class="source" href="DataSource.html">
-                  DataSource.js
-                </a>
+              <a class="source" href="Module.html">
+                Module.js
+              </a>
+            
               
-                
-                <a class="source" href="DataSources.html">
-                  DataSources.js
-                </a>
+              <a class="source" href="ArrayDataSource.html">
+                ArrayDataSource.js
+              </a>
+            
               
-                
-                <a class="source" href="DataSourcesEvents.html">
-                  DataSourcesEvents.js
-                </a>
+              <a class="source" href="Component.html">
+                Component.js
+              </a>
+            
               
-                
-                <a class="source" href="View.html">
-                  View.js
-                </a>
+              <a class="source" href="Controller.html">
+                Controller.js
+              </a>
+            
               
-            </div>
+              <a class="source" href="DataSource.html">
+                DataSource.js
+              </a>
+            
+              
+              <a class="source" href="DataSources.html">
+                DataSources.js
+              </a>
+            
+              
+              <a class="source" href="DataSourcesEvents.html">
+                DataSourcesEvents.js
+              </a>
+            
+              
+              <a class="source" href="View.html">
+                View.js
+              </a>
+            
           </div>
         </li>
       </ul>
     
     <ul class="sections">
-        
-          <li id="title">
-              <div class="annotation">
-                  <h1>ArrayDataSource.js</h1>
-              </div>
-          </li>
         
         
         
@@ -75,14 +87,17 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <h1 id="kronicle-arraydatasource-class">Kronicle.ArrayDataSource class</h1>
+<p>This class is a simple native array based DataSource implementation
+The constructor initializes one property:</p>
+<ul>
+<li>data - an empty array</li>
+</ul>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre>import {DataSource} from <span class="hljs-string">'./DataSource.js'</span>;
-
-
-export <span class="hljs-keyword">class</span> ArrayDataSource {
-    constructor(source, name) {
+            <div class="content"><div class='highlight'><pre>export <span class="hljs-keyword">class</span> ArrayDataSource {
+    constructor() {
         <span class="hljs-keyword">this</span>.data = [];</pre></div></div>
             
         </li>
@@ -98,20 +113,91 @@ export <span class="hljs-keyword">class</span> ArrayDataSource {
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    }
-    
-    login(user, pass, cb) {
+            <div class="content"><div class='highlight'><pre>    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="login-method">login method</h2>
+<p>Sets the user and pass properites.
+Takes three arguments:</p>
+<ul>
+<li>user - the username.</li>
+<li>pass - the password.</li>
+<li>cb - the callback to be called once the properties are set, takes three arguments<ul>
+<li>err - a null object in this case.</li>
+<li>user - the user argument.</li>
+<li>pass - the pass argument.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    login(user, pass, cb) {
         <span class="hljs-keyword">this</span>.user = user;
         <span class="hljs-keyword">this</span>.pass = pass;
         cb(<span class="hljs-literal">null</span>, user, pass);
-    }
-    
-    create(item, cb) {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="create-method">create method</h2>
+<p>Pushes an item into the array as a create function.
+Takes two arguments</p>
+<ul>
+<li>item - the item to push onto the array</li>
+<li>cb - the callback to be called once item is added, takes two arguments<ul>
+<li>err - a null object in this case</li>
+<li>item - the created(added) item</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    create(item, cb) {
         <span class="hljs-keyword">this</span>.data.push(item);
         cb(<span class="hljs-literal">null</span>, item);
-    }
-    
-    update(item, cb) {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="update-method">update method</h2>
+<p>Updates an item in the array
+Takes two arguments</p>
+<ul>
+<li>item - the item to update from the array</li>
+<li>cb - the callback to be called once the item is updated, takes two arguments<ul>
+<li>err - and error object</li>
+<li>item - the item</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    update(item, cb) {
         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>.data){
             <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.data[i]._id == item._id){
                 <span class="hljs-keyword">this</span>.data[i] = item;
@@ -120,9 +206,32 @@ export <span class="hljs-keyword">class</span> ArrayDataSource {
             }
         }
         cb(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Item not found in data.'</span>), item);
-    }
-    
-    remove(id, cb) {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="remove-method">remove method</h2>
+<p>Removes an item in the array
+Takes two arguments</p>
+<ul>
+<li>item - the item to remove from the array</li>
+<li>cb - the callback to be called once the item is removed, takes two arguments<ul>
+<li>err - and error object</li>
+<li>length/id - the length if the item is removed or the id if an error occurs</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    remove(id, cb) {
         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>.data){
             <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.data[i]._id == id){
                 <span class="hljs-keyword">this</span>.data.splice(i, <span class="hljs-number">1</span>);
@@ -131,9 +240,32 @@ export <span class="hljs-keyword">class</span> ArrayDataSource {
             }
         }        
         cb(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Item not found in data.'</span>), id);
-    }
-    
-    get(id, cb) {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="get-method">get method</h2>
+<p>Gets an item in the array
+Takes two arguments</p>
+<ul>
+<li>id - the id to get from the array</li>
+<li>cb - the callback to be called once the item is retrieved, takes two arguments<ul>
+<li>err - and error object</li>
+<li>item/id - the item retrieved or the id that was attempted in error</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    get(id, cb) {
         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>.data){
             <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.data[i]._id == id) {
                 cb(<span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span>.data[i]);

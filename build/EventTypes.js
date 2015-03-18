@@ -1,5 +1,8 @@
 "use strict";
 
+// # EventType constants
+// These constats are used to reference the various events that Kronicle will trigger.
+// Import this object and add events as necessary.
 var events = {
     Initialized: "Initialized",
     BeforeModulesLoad: "BeforeModulesLoad",

@@ -16,30 +16,63 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page_wrapper">
-            <div id="jump_page">
+          <div id="jump_page">
+            
               
-                
-                <a class="source" href="Core.html">
-                  Core.js
-                </a>
+              <a class="source" href="Core.html">
+                Core.js
+              </a>
+            
               
-                
-                <a class="source" href="EventTypes.html">
-                  EventTypes.js
-                </a>
+              <a class="source" href="EventTypes.html">
+                EventTypes.js
+              </a>
+            
               
-                
-                <a class="source" href="Kronicle.html">
-                  Kronicle.js
-                </a>
+              <a class="source" href="Kronicle.html">
+                Kronicle.js
+              </a>
+            
               
-                
-                <a class="source" href="Module.html">
-                  Module.js
-                </a>
+              <a class="source" href="Module.html">
+                Module.js
+              </a>
+            
               
-            </div>
+              <a class="source" href="ArrayDataSource.html">
+                ArrayDataSource.js
+              </a>
+            
+              
+              <a class="source" href="Component.html">
+                Component.js
+              </a>
+            
+              
+              <a class="source" href="Controller.html">
+                Controller.js
+              </a>
+            
+              
+              <a class="source" href="DataSource.html">
+                DataSource.js
+              </a>
+            
+              
+              <a class="source" href="DataSources.html">
+                DataSources.js
+              </a>
+            
+              
+              <a class="source" href="DataSourcesEvents.html">
+                DataSourcesEvents.js
+              </a>
+            
+              
+              <a class="source" href="View.html">
+                View.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -64,14 +97,7 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>import {<span class="hljs-keyword">default</span> as PubSub} from <span class="hljs-string">'pubsub-js'</span>; 
-import {events} from <span class="hljs-string">'./EventTypes.js'</span>;
-
-export <span class="hljs-keyword">class</span> Core {
-    constructor(modules) {
-        PubSub.publish(events.Initialized);
-        <span class="hljs-keyword">this</span>.addedModules = {};
-        PubSub.publish(events.BeforeModulesLoad, modules);
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> mod <span class="hljs-keyword">in</span> modules){</pre></div></div>
+import {events} from <span class="hljs-string">'./EventTypes.js'</span>;</pre></div></div>
             
         </li>
         
@@ -82,13 +108,30 @@ export <span class="hljs-keyword">class</span> Core {
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>modules[mod].initialize();</p>
+              <h1 id="main-kronicle-core-class">Main Kronicle.Core class</h1>
+<p>depends: pubsub-js, <a href="EventTypes.html">Kronicle.EventTypes</a>
+This is the main Kronicle Core. This class is used to load all modules that are to be used in the Kronicle app.
+Events are fired at various points to indiciate the status and can be used as hooks for library modules.
+Constructor an array of Kronicle modules as an argument.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.addedModules[modules[mod].name] = modules[mod];
+            <div class="content"><div class='highlight'><pre>export <span class="hljs-keyword">class</span> Core {
+    constructor(modules) {
+        
+        PubSub.publish(events.Initialized);
+        
+        <span class="hljs-keyword">this</span>.addedModules = {};
+        
+        PubSub.publish(events.BeforeModulesLoad, modules);
+        
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> mod <span class="hljs-keyword">in</span> modules){
+            
+            <span class="hljs-keyword">this</span>.addedModules[modules[mod].name] = modules[mod];
             PubSub.publish(events.ModuleLoaded, modules[mod]);
+            
         }
+        
         PubSub.publish(events.AfterModulesLoad, modules);
         PubSub.publish(events.Ready);
     }

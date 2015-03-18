@@ -7,6 +7,14 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 var Module = require("../Module.js").Module;
+
+
+// # Kronicle.Controller class
+// This class is used to handle events from users and dispatch the proper response via view and model.
+// The constructor takes an args object which contains the following properties:
+// - model - the data model associated with the controller.
+// - view - the Kronicle View associated withe the controller.
+// - name - the name of the Controller.
 var Controller = exports.Controller = (function (Module) {
     function Controller() {
         var args = arguments[0] === undefined ? { model: {}, view: {}, name: "" } : arguments[0];

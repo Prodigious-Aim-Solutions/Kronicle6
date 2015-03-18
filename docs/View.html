@@ -16,45 +16,63 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page_wrapper">
-            <div id="jump_page">
+          <div id="jump_page">
+            
               
-                
-                <a class="source" href="ArrayDataSource.html">
-                  ArrayDataSource.js
-                </a>
+              <a class="source" href="Core.html">
+                Core.js
+              </a>
+            
               
-                
-                <a class="source" href="Component.html">
-                  Component.js
-                </a>
+              <a class="source" href="EventTypes.html">
+                EventTypes.js
+              </a>
+            
               
-                
-                <a class="source" href="Controller.html">
-                  Controller.js
-                </a>
+              <a class="source" href="Kronicle.html">
+                Kronicle.js
+              </a>
+            
               
-                
-                <a class="source" href="DataSource.html">
-                  DataSource.js
-                </a>
+              <a class="source" href="Module.html">
+                Module.js
+              </a>
+            
               
-                
-                <a class="source" href="DataSources.html">
-                  DataSources.js
-                </a>
+              <a class="source" href="ArrayDataSource.html">
+                ArrayDataSource.js
+              </a>
+            
               
-                
-                <a class="source" href="DataSourcesEvents.html">
-                  DataSourcesEvents.js
-                </a>
+              <a class="source" href="Component.html">
+                Component.js
+              </a>
+            
               
-                
-                <a class="source" href="View.html">
-                  View.js
-                </a>
+              <a class="source" href="Controller.html">
+                Controller.js
+              </a>
+            
               
-            </div>
+              <a class="source" href="DataSource.html">
+                DataSource.js
+              </a>
+            
+              
+              <a class="source" href="DataSources.html">
+                DataSources.js
+              </a>
+            
+              
+              <a class="source" href="DataSourcesEvents.html">
+                DataSourcesEvents.js
+              </a>
+            
+              
+              <a class="source" href="View.html">
+                View.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -78,9 +96,29 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>import {Module} from <span class="hljs-string">'../Module.js'</span>;
+            <div class="content"><div class='highlight'><pre>import {Module} from <span class="hljs-string">'../Module.js'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="kronicle-view-class">Kronicle.View class</h1>
+<p>depends: [Kronicle.Module]
+The module used for rendering main views. An array of smaller components are usually used to make up a view.
+The constructor takes an args object that has the following two properties:</p>
+<ul>
+<li>template - a function that returns a string</li>
+<li>components - an array of Kronicle Components</li>
+</ul>
 
-export <span class="hljs-keyword">class</span> View extends Module {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>export <span class="hljs-keyword">class</span> View extends Module {
     constructor (args){
         <span class="hljs-keyword">this</span>.template = args.template || () =&gt; { <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>};
         <span class="hljs-keyword">this</span>.components = []
@@ -88,21 +126,76 @@ export <span class="hljs-keyword">class</span> View extends Module {
             <span class="hljs-keyword">this</span>.addComponents(args.components);
         }
         super({name: args.name + <span class="hljs-string">'View'</span>});
-    }
-    
-    render(err, data) {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="render-method">render method</h2>
+<p>The render method passes any data avaialbe to a template and returns the rendered string
+Takes two arguments</p>
+<ul>
+<li>err - an error that occured in the parent function</li>
+<li>data - the data to be passed to template</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    render(err, data) {
         <span class="hljs-keyword">if</span>(!err) {
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.template(data);
         }
-    }
-    
-    addComponents (components) {
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="addcomponents-method">addComponents method</h2>
+<p>The method used to add an array of Kronicle Components to the View
+Takes one argument:</p>
+<ul>
+<li>components - an array of Kronicle Components</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    addComponents (components) {
         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i <span class="hljs-keyword">in</span> components){
             <span class="hljs-keyword">this</span>.addComponent(components[i]);
         }
-    }
-    
-    addComponent (component){
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="addcomponent-method">addComponent method</h2>
+<p>The method used to add a single Kronicle Component to the View
+Takes one argument:</p>
+<ul>
+<li>component</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    addComponent (component){
         <span class="hljs-keyword">this</span>.components[component.name.split(<span class="hljs-string">'Component'</span>)[<span class="hljs-number">0</span>]] = component;
     }
 }</pre></div></div>

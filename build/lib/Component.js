@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
 var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
 
 var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
@@ -11,8 +9,16 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 var Module = require("../Module.js").Module;
-var util = _interopRequire(require("util"));
 
+
+// # Kronicle.Component class
+// depends: [Kronicle.Module](Module.html)
+// The Component class is used to create components which are added to Views or other components.
+// A component is a small, reusable module implementation.
+// The constructor takes an args object that contains the properties:
+// - components - an array of components
+// - template - a function that returns a string
+// - name - the name of the component - will have Component appeded to it during initialization
 var Component = exports.Component = (function (Module) {
     function Component() {
         var args = arguments[0] === undefined ? { components: [], template: function () {
@@ -34,6 +40,12 @@ var Component = exports.Component = (function (Module) {
 
     _prototypeProperties(Component, null, {
         render: {
+
+            // ## render method
+            // The render method passes any data avaialbe to a template and returns the rendered string
+            // Takes two arguments
+            // - err - an error that occured in the parent function
+            // - data - the data to be passed to template
             value: function render(err, data) {
                 if (!err) {
                     return this.template(data);
@@ -43,6 +55,11 @@ var Component = exports.Component = (function (Module) {
             configurable: true
         },
         addComponents: {
+
+            // ## addComponents method
+            // This medthod add sub-components to the component, use this method to build a component with other components.
+            // Takes one argument:
+            // - components - an array of Kronicle Components
             value: function addComponents(components) {
                 var aryComponents = components;
                 if (!(components instanceof Array)) {
@@ -61,6 +78,11 @@ var Component = exports.Component = (function (Module) {
             configurable: true
         },
         addComponentModule: {
+
+            // ## addComponentModule method
+            // This method adds an individual sub-component to the component.
+            // Takes one argument:
+            // - component - a Kronicle Component
             value: function addComponentModule(component) {
                 this.modules.components[component.name] = component;
             },
