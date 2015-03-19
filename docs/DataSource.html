@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>DataSource.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="Core.html">
+                Core.js
+              </a>
+            
+              
+              <a class="source" href="EventTypes.html">
+                EventTypes.js
+              </a>
+            
+              
+              <a class="source" href="Kronicle.html">
+                Kronicle.js
+              </a>
+            
+              
+              <a class="source" href="Module.html">
+                Module.js
+              </a>
+            
+              
+              <a class="source" href="ArrayDataSource.html">
+                ArrayDataSource.js
+              </a>
+            
+              
+              <a class="source" href="Component.html">
+                Component.js
+              </a>
+            
+              
+              <a class="source" href="Controller.html">
+                Controller.js
+              </a>
+            
+              
+              <a class="source" href="DataSource.html">
+                DataSource.js
+              </a>
+            
+              
+              <a class="source" href="DataSources.html">
+                DataSources.js
+              </a>
+            
+              
+              <a class="source" href="DataSourcesEvents.html">
+                DataSourcesEvents.js
+              </a>
+            
+              
+              <a class="source" href="View.html">
+                View.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>DataSource.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>import {Module} from <span class="hljs-string">'../Module.js'</span>;
+import {events} from <span class="hljs-string">'./DataSourcesEvents.js'</span>;
+import {<span class="hljs-keyword">default</span> as PubSub} from <span class="hljs-string">'pubsub-js'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="kronicle-datasource-class">Kronicle.DataSource class</h1>
+<p>depends: <a href="Module.html">Kronicle.Module</a>, <a href="DataSourcesEvents.html">Kronicle.DataSourcesEvents</a>, pubsub-js
+This class is used to implement a CRUD datasource for use in Kronicle.
+The constructor takes an args object which has the following properties:</p>
+<ul>
+<li>source - a datasource implementation.</li>
+<li>name - the name of the datasource.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>export <span class="hljs-keyword">class</span> DataSource extends Module {
+    constructor(args = {source: <span class="hljs-literal">undefined</span>, name: <span class="hljs-string">''</span>}) {
+        <span class="hljs-keyword">let</span> emptySource = {
+            login: (user, pass, cb) =&gt; { cb(); <span class="hljs-keyword">return</span>; },
+            create: (item, cb) =&gt; { cb(); <span class="hljs-keyword">return</span>; },
+            update: (item, cb) =&gt; { cb(); <span class="hljs-keyword">return</span>; },
+            remove: (item, cb) =&gt; { cb(); <span class="hljs-keyword">return</span>; },
+            get: (item, cb) =&gt; { cb(); <span class="hljs-keyword">return</span>; }
+        };
+        <span class="hljs-keyword">this</span>.source = args.source || emptySource;
+        super({name: args.name});
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="login-method">login method</h2>
+<p>This is impemented in the source if the datasource requires a login.
+The method takes three arguments</p>
+<ul>
+<li>user - the username needed for login.</li>
+<li>pass - the password needed for login.</li>
+<li>cb - the callback to be called after login attempt, this is passed two arguments<ul>
+<li>err - if an error is caused by the login attemp.</li>
+<li>data - a successful login data object, often the user or token used in an API
+An OnLogin event is triggered after the attempt, it’s passed the user and pass arguments.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    login(user, pass, cb) {
+        <span class="hljs-keyword">this</span>.source.login(user, pass, (err, data) =&gt; {
+            <span class="hljs-keyword">this</span>._doCbIfExists(cb, err, data);
+            PubSub.publish(events.OnLogin, user, pass, events.OnLogin);
+        });        
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="create-method">create method</h2>
+<p>This method is implemented in the source to create a new source item.
+The method takes two arguments</p>
+<ul>
+<li>item - the item to be created.</li>
+<li>cb - the callback to be called after creation, this is passed two arguments<ul>
+<li>err - if an error is caused by the creation attempt.</li>
+<li>data - a successfully created item.
+An OnCreate event is triggered after the attempt, it’s passed the item as an argument.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    create(item, cb) {
+        <span class="hljs-keyword">this</span>.source.create(item, (err, data) =&gt; {
+            <span class="hljs-keyword">this</span>._doCbIfExists(cb, err, data);
+            PubSub.publish(events.OnCreate, item, events.OnCreate);
+        });        
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="update-method">update method</h2>
+<p>This method is implemented in the source to update a source item.
+The method takes two arguments</p>
+<ul>
+<li>item - the item to be updaed.</li>
+<li>cb - the callback to be called after the update, this is passed two arguments<ul>
+<li>err - if an error is caused by the update attempt.</li>
+<li>data - a successfully updated item.
+An OnUpdate event is triggered after the attempt, it’s passed the item as an argument.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    update(item, cb) {
+        <span class="hljs-keyword">this</span>.source.update(item, (err, data) =&gt; {
+            <span class="hljs-keyword">this</span>._doCbIfExists(cb, err, data);
+            PubSub.publish(events.OnUpdate, item, events.OnUpdate);
+        });        
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="remove-method">remove method</h2>
+<p>This method is implemented in the source to remove a source item.
+The method takes two arguments</p>
+<ul>
+<li>item - the item to be removed.</li>
+<li>cb - the callback to be called after the removal, this is passed two arguments<ul>
+<li>err - if an error is caused by the removal attempt.</li>
+<li>data - a successfully removed item.
+An OnRemove event is triggered after the attempt, it’s passed the item as an argument.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    remove(item, cb) {
+        <span class="hljs-keyword">this</span>.source.remove(item, (err, data)=&gt; {
+            <span class="hljs-keyword">this</span>._doCbIfExists(cb, err, data);
+            PubSub.publish(events.OnRemove, item, events.OnRemove);
+        });        
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h2 id="get-method">get method</h2>
+<p>This method is implemented in the source to get a source item.
+The method takes two arguments</p>
+<ul>
+<li>item - the item to get.</li>
+<li>cb - the callback to be called after attempting to get the item, this is passed two arguments<ul>
+<li>err - if an error is caused by the get attempt.</li>
+<li>data - a successfully retrieved item.
+An OnGet event is triggered after the attempt, it’s passed the item as an argument.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    get(item, cb) {
+        <span class="hljs-keyword">this</span>.source.get(item, (err, data) =&gt; {
+            <span class="hljs-keyword">this</span>._doCbIfExists(cb, err, data);
+            PubSub.publish(events.OnGet, item, events.OnGet);
+        });
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h2 id="onlogin-method">onLogin method</h2>
+<p>This method is used as a hook into the OnLogin event.
+It is passed one argument:</p>
+<ul>
+<li>cb - the callback to be called after a login attemp, it’s passed the following arguments.<ul>
+<li>user - the username of the attempt.</li>
+<li>pass - the password of the attempt.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    onLogin(cb) {
+         PubSub.subscribe(events.OnLogin, cb);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2 id="oncreate-method">onCreate method</h2>
+<p>This method is used as a hook into the OnCreate event.
+It is passed one argument:</p>
+<ul>
+<li>cb - the callback to be called after a create attempt, it’s passed the following argument<ul>
+<li>item - the item that was attempted to be created.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    onCreate(cb) {
+        PubSub.subscribe(events.OnCreate, cb);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h2 id="onupdate-method">onUpdate method</h2>
+<p>This method is used as a hook into the OnUpdate event.
+It is passed one argument:</p>
+<ul>
+<li>cb - the callback to be called after an update attempt, it’s passed the following argument<ul>
+<li>item - the item that was attempted to be updated.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    onUpdate(cb) {
+        PubSub.subscribe(events.OnUpdate, cb);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h2 id="onremove-method">onRemove method</h2>
+<p>This method is used as a hook into the OnRemove event.
+It is passed one argument:</p>
+<ul>
+<li>cb - the callback to be called after a removal attempt, it’s passed the following argument<ul>
+<li>item - the item that was attempted to be removed.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    onRemove(cb) {
+        PubSub.subscribe(events.OnRemove, cb);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h2 id="onget-method">onGet method</h2>
+<p>This method is used as a hook into the OnGet event.
+It is passed one argument:</p>
+<ul>
+<li>cb - the callback to be called after a retrieval attempt, it’s passed the following argument<ul>
+<li>item - the item that was attempted to be retrieved.</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    onGet(cb) {
+        PubSub.subscribe(events.OnGet, cb);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h2 id="_docbifexists">_doCBIfExists</h2>
+<p>This method is to be used internally and not meant to be used by consuming modules.
+This method checks if a callback exists and if so, calls it with err and data arguments passed to it.
+It take three arguments:</p>
+<ul>
+<li>cb - the callback to check and call if exists.</li>
+<li>err - an error to be passed to the callback if exists.</li>
+<li>data - the data to be passed to the callback if exists.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    _doCbIfExists(cb, err, data) {
+        <span class="hljs-keyword">if</span>(cb){
+            cb(err, data);
+        }
+    }
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
