@@ -8,6 +8,9 @@ A port to ES6 of the Kronicle SPA framework
 ##Overview
 A port of Kronicle SPA framework to ES6 as well as a rewrite of the main framework.
 Using http://addyosmani.com/largescalejavascript/ as inspiration.
+
+Kronicle6' goal is to be a tool for easy development of Web Applications, with a focus on REST driven Single Page Applications.
+
 ###High level goals:
 - Modular Design
  - Everything is a module, loaded by the core
