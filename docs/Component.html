@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Component.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="Core.html">
+                Core.js
+              </a>
+            
+              
+              <a class="source" href="EventTypes.html">
+                EventTypes.js
+              </a>
+            
+              
+              <a class="source" href="Kronicle.html">
+                Kronicle.js
+              </a>
+            
+              
+              <a class="source" href="Module.html">
+                Module.js
+              </a>
+            
+              
+              <a class="source" href="ArrayDataSource.html">
+                ArrayDataSource.js
+              </a>
+            
+              
+              <a class="source" href="Component.html">
+                Component.js
+              </a>
+            
+              
+              <a class="source" href="Controller.html">
+                Controller.js
+              </a>
+            
+              
+              <a class="source" href="DataSource.html">
+                DataSource.js
+              </a>
+            
+              
+              <a class="source" href="DataSources.html">
+                DataSources.js
+              </a>
+            
+              
+              <a class="source" href="DataSourcesEvents.html">
+                DataSourcesEvents.js
+              </a>
+            
+              
+              <a class="source" href="View.html">
+                View.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>Component.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>import {Module} from <span class="hljs-string">'../Module.js'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h1 id="kronicle-component-class">Kronicle.Component class</h1>
+<p>depends: <a href="Module.html">Kronicle.Module</a>
+The Component class is used to create components which are added to Views or other components.
+A component is a small, reusable module implementation.
+The constructor takes an args object that contains the properties:</p>
+<ul>
+<li>components - an array of components</li>
+<li>template - a function that returns a string</li>
+<li>name - the name of the component - will have Component appeded to it during initialization</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>export <span class="hljs-keyword">class</span> Component extends Module {
+    constructor (args = {components: [], template: () =&gt; { <span class="hljs-keyword">return</span> <span class="hljs-string">""</span> }, name: <span class="hljs-string">""</span>}) {
+        <span class="hljs-keyword">this</span>.template = args.template;
+        <span class="hljs-keyword">this</span>.modules = {
+            components: {}
+        };
+        <span class="hljs-keyword">if</span>(args.components) {
+            <span class="hljs-keyword">this</span>.addComponents(args.components);
+        }
+        super({name: args.name + <span class="hljs-string">'Component'</span>});
+        
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="render-method">render method</h2>
+<p>The render method passes any data avaialbe to a template and returns the rendered string
+Takes two arguments</p>
+<ul>
+<li>err - an error that occured in the parent function</li>
+<li>data - the data to be passed to template</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    render (err, data) {
+        <span class="hljs-keyword">if</span>(!err) {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.template(data);
+        }
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="addcomponents-method">addComponents method</h2>
+<p>This medthod add sub-components to the component, use this method to build a component with other components.
+Takes one argument:</p>
+<ul>
+<li>components - an array of Kronicle Components</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    addComponents(components) {
+        <span class="hljs-keyword">var</span> aryComponents = components;
+        <span class="hljs-keyword">if</span>(!(components <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>)){
+            aryComponents = [components];
+        }
+        <span class="hljs-keyword">this</span>.components = components;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> index <span class="hljs-keyword">in</span> aryComponents){
+            <span class="hljs-keyword">if</span>(aryComponents[index].name) {
+                <span class="hljs-keyword">this</span>.addComponentModule(aryComponents[index]);
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Error: components must have a unique name'</span>);
+            }
+        }
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="addcomponentmodule-method">addComponentModule method</h2>
+<p>This method adds an individual sub-component to the component.
+Takes one argument:</p>
+<ul>
+<li>component - a Kronicle Component</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    addComponentModule(component) {
+        <span class="hljs-keyword">this</span>.modules.components[component.name] = component
+    }
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

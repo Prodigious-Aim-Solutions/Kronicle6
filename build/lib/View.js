@@ -9,6 +9,14 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 var Module = require("../Module.js").Module;
+
+
+// # Kronicle.View class
+// depends: [Kronicle.Module](Module.html)
+// The module used for rendering main views. An array of smaller components are usually used to make up a view.
+// The constructor takes an args object that has the following two properties:
+// - template - a function that returns a string
+// - components - an array of Kronicle Components
 var View = exports.View = (function (Module) {
     function View(args) {
         _classCallCheck(this, View);
@@ -27,6 +35,12 @@ var View = exports.View = (function (Module) {
 
     _prototypeProperties(View, null, {
         render: {
+
+            // ## render method
+            // The render method passes any data avaialbe to a template and returns the rendered string
+            // Takes two arguments
+            // - err - an error that occured in the parent function
+            // - data - the data to be passed to template
             value: function render(err, data) {
                 if (!err) {
                     return this.template(data);
@@ -36,6 +50,11 @@ var View = exports.View = (function (Module) {
             configurable: true
         },
         addComponents: {
+
+            // ## addComponents method
+            // The method used to add an array of Kronicle Components to the View
+            // Takes one argument:
+            // - components - an array of Kronicle Components
             value: function addComponents(components) {
                 for (var i in components) {
                     this.addComponent(components[i]);
@@ -45,6 +64,11 @@ var View = exports.View = (function (Module) {
             configurable: true
         },
         addComponent: {
+
+            // ## addComponent method
+            // The method used to add a single Kronicle Component to the View
+            // Takes one argument:
+            // - component
             value: function addComponent(component) {
                 this.components[component.name.split("Component")[0]] = component;
             },

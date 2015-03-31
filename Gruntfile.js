@@ -38,12 +38,24 @@ module.exports = function(grunt) {
             harmony: true
         },
         all: ['tests/*.js']
+    },
+    docco: {
+      debug: {
+        src: ['src/**/*.js']
+      },
+      examples: {
+        src: ['examples/src/*.js', 'examples/index.js']
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-babel');
   //grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-mocha-cli');
+  
+  grunt.loadNpmTasks('grunt-docco');
+  
+  grunt.registerTask('docs', ['docco']);
     
   grunt.registerTask('examples', ['babel:examples']);
 

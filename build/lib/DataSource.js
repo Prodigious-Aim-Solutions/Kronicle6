@@ -14,6 +14,12 @@ var Module = require("../Module.js").Module;
 var events = require("./DataSourcesEvents.js").events;
 var PubSub = _interopRequire(require("pubsub-js"));
 
+// # Kronicle.DataSource class
+// depends: [Kronicle.Module](Module.html), [Kronicle.DataSourcesEvents](DataSourcesEvents.html), pubsub-js
+// This class is used to implement a CRUD datasource for use in Kronicle.
+// The constructor takes an args object which has the following properties:
+// - source - a datasource implementation.
+// - name - the name of the datasource.
 var DataSource = exports.DataSource = (function (Module) {
     function DataSource() {
         var args = arguments[0] === undefined ? { source: undefined, name: "" } : arguments[0];
@@ -45,6 +51,16 @@ var DataSource = exports.DataSource = (function (Module) {
 
     _prototypeProperties(DataSource, null, {
         login: {
+
+            // ## login method
+            // This is impemented in the source if the datasource requires a login.
+            // The method takes three arguments
+            // - user - the username needed for login.
+            // - pass - the password needed for login.
+            // - cb - the callback to be called after login attempt, this is passed two arguments
+            //  - err - if an error is caused by the login attemp.
+            //  - data - a successful login data object, often the user or token used in an API
+            // An OnLogin event is triggered after the attempt, it's passed the user and pass arguments.
             value: function login(user, pass, cb) {
                 var _this = this;
                 this.source.login(user, pass, function (err, data) {
@@ -56,6 +72,15 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         create: {
+
+            // ## create method
+            // This method is implemented in the source to create a new source item.
+            // The method takes two arguments
+            // - item - the item to be created.
+            // - cb - the callback to be called after creation, this is passed two arguments
+            //  - err - if an error is caused by the creation attempt.
+            //  - data - a successfully created item.
+            // An OnCreate event is triggered after the attempt, it's passed the item as an argument.
             value: function create(item, cb) {
                 var _this = this;
                 this.source.create(item, function (err, data) {
@@ -67,6 +92,15 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         update: {
+
+            // ## update method
+            // This method is implemented in the source to update a source item.
+            // The method takes two arguments
+            // - item - the item to be updaed.
+            // - cb - the callback to be called after the update, this is passed two arguments
+            //  - err - if an error is caused by the update attempt.
+            //  - data - a successfully updated item.
+            // An OnUpdate event is triggered after the attempt, it's passed the item as an argument.
             value: function update(item, cb) {
                 var _this = this;
                 this.source.update(item, function (err, data) {
@@ -78,6 +112,15 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         remove: {
+
+            // ## remove method
+            // This method is implemented in the source to remove a source item.
+            // The method takes two arguments
+            // - item - the item to be removed.
+            // - cb - the callback to be called after the removal, this is passed two arguments
+            //  - err - if an error is caused by the removal attempt.
+            //  - data - a successfully removed item.
+            // An OnRemove event is triggered after the attempt, it's passed the item as an argument.
             value: function remove(item, cb) {
                 var _this = this;
                 this.source.remove(item, function (err, data) {
@@ -89,6 +132,15 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         get: {
+
+            // ## get method
+            // This method is implemented in the source to get a source item.
+            // The method takes two arguments
+            // - item - the item to get.
+            // - cb - the callback to be called after attempting to get the item, this is passed two arguments
+            //  - err - if an error is caused by the get attempt.
+            //  - data - a successfully retrieved item.
+            // An OnGet event is triggered after the attempt, it's passed the item as an argument.
             value: function get(item, cb) {
                 var _this = this;
                 this.source.get(item, function (err, data) {
@@ -100,6 +152,13 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         onLogin: {
+
+            // ## onLogin method
+            // This method is used as a hook into the OnLogin event.
+            // It is passed one argument:
+            // - cb - the callback to be called after a login attemp, it's passed the following arguments.
+            //  - user - the username of the attempt.
+            //  - pass - the password of the attempt.
             value: function onLogin(cb) {
                 PubSub.subscribe(events.OnLogin, cb);
             },
@@ -107,6 +166,12 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         onCreate: {
+
+            // ## onCreate method
+            // This method is used as a hook into the OnCreate event.
+            // It is passed one argument:
+            // - cb - the callback to be called after a create attempt, it's passed the following argument
+            //  - item - the item that was attempted to be created.
             value: function onCreate(cb) {
                 PubSub.subscribe(events.OnCreate, cb);
             },
@@ -114,6 +179,12 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         onUpdate: {
+
+            // ## onUpdate method
+            // This method is used as a hook into the OnUpdate event.
+            // It is passed one argument:
+            // - cb - the callback to be called after an update attempt, it's passed the following argument
+            //  - item - the item that was attempted to be updated.
             value: function onUpdate(cb) {
                 PubSub.subscribe(events.OnUpdate, cb);
             },
@@ -121,6 +192,12 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         onRemove: {
+
+            // ## onRemove method
+            // This method is used as a hook into the OnRemove event.
+            // It is passed one argument:
+            // - cb - the callback to be called after a removal attempt, it's passed the following argument
+            //  - item - the item that was attempted to be removed.
             value: function onRemove(cb) {
                 PubSub.subscribe(events.OnRemove, cb);
             },
@@ -128,6 +205,12 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         onGet: {
+
+            // ## onGet method
+            // This method is used as a hook into the OnGet event.
+            // It is passed one argument:
+            // - cb - the callback to be called after a retrieval attempt, it's passed the following argument
+            //  - item - the item that was attempted to be retrieved.
             value: function onGet(cb) {
                 PubSub.subscribe(events.OnGet, cb);
             },
@@ -135,6 +218,14 @@ var DataSource = exports.DataSource = (function (Module) {
             configurable: true
         },
         _doCbIfExists: {
+
+            // ## _doCBIfExists
+            // This method is to be used internally and not meant to be used by consuming modules.
+            // This method checks if a callback exists and if so, calls it with err and data arguments passed to it.
+            // It take three arguments:
+            // - cb - the callback to check and call if exists.
+            // - err - an error to be passed to the callback if exists.
+            // - data - the data to be passed to the callback if exists.
             value: function _doCbIfExists(cb, err, data) {
                 if (cb) {
                     cb(err, data);
