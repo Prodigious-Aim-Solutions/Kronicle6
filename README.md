@@ -1,4 +1,6 @@
 #Kronicle 6
+
+[![Join the chat at https://gitter.im/Prodigious-Aim-Solutions/Kronicle6](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Prodigious-Aim-Solutions/Kronicle6?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A port to ES6 of the Kronicle SPA framework
 
 [ ![Codeship Status for Prodigious-Aim-Solutions/Kronicle6](https://codeship.com/projects/96048080-9e92-0132-dcc5-1633992bbc91/status?branch=master)](https://codeship.com/projects/64882)
