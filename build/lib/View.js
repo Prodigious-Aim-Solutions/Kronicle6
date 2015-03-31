@@ -12,7 +12,7 @@ var Module = require("../Module.js").Module;
 
 
 // # Kronicle.View class
-// depends: [Kronicle.Module]
+// depends: [Kronicle.Module](Module.html)
 // The module used for rendering main views. An array of smaller components are usually used to make up a view.
 // The constructor takes an args object that has the following two properties:
 // - template - a function that returns a string

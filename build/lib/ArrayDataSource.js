@@ -13,7 +13,6 @@ var ArrayDataSource = exports.ArrayDataSource = (function () {
         _classCallCheck(this, ArrayDataSource);
 
         this.data = [];
-        //super.initialize(source, name);
     }
 
     _prototypeProperties(ArrayDataSource, null, {
