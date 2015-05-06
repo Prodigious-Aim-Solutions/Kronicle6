@@ -46,6 +46,13 @@ module.exports = function(grunt) {
       examples: {
         src: ['examples/src/*.js', 'examples/index.js']
       }
+    },
+    browserify: {
+      dist: {
+        files: {
+          'dist/kronicle.js': ['build/Kronicle.js'],
+        }
+      }
     }
   });
 
@@ -55,11 +62,15 @@ module.exports = function(grunt) {
   
   grunt.loadNpmTasks('grunt-docco');
   
+  grunt.loadNpmTasks('grunt-browserify');
+  
   grunt.registerTask('docs', ['docco']);
     
   grunt.registerTask('examples', ['babel:examples']);
 
   grunt.registerTask('test', ['babel:dist', 'babel:test', 'mochacli']);
+  
+  grunt.registerTask('browser', ['babel:dist', 'browserify']);
 
   grunt.registerTask('default', ['babel:dist']);
 
