@@ -13,21 +13,21 @@ var Component = require("../../build/lib/Component.js").Component;
 
 // Create a DataSources object that contains an ArrayDataSource and push a test item on to it.
 var dataSources = new DataSources([new DataSource({ source: new ArrayDataSource(), name: "ArrayDataSource" })]);
-dataSources.sources.ArrayDataSource.create("test", function () {
-    console.log("test created");
+dataSources.sources.ArrayDataSource.create('Kronicle', function () {
+    console.log('test created');
 });
 
+// Create Hello World Controller
 var helloCtrl = new Controller({
     name: 'HelloWorld',
+    // View for controller, also called HelloWorld, will be renamed internally to HelloWorldView
     view: new View({
         name: 'HelloWorld',
         template: function(data) {
             return data ? '<h1>Hello ' + data + '! What A Curveball!</h1>' : 'Hello World';
         }
     }),
-    initialize: function(){
-        //return this.view.render(null, "Jason");
-    }
+    model: dataSources.sources.ArrayDataSource
 });
 
 var kronApp = new Kronicle().build({ modules: [dataSources, helloCtrl] });
