@@ -1,3 +1,4 @@
+require("babel/polyfill");
 import {Module} from '../Module.js';
 import {default as PubSub} from 'pubsub-js'; 
 import {events} from './DataSourcesEvents.js';
@@ -21,10 +22,10 @@ export class DataSources extends Module {
         
         PubSub.publish(events.BeforeDataSourcesLoaded);
         
-        for(let index in sources) {
-            this.sources[sources[index].name] = sources[index];
+        for(let source of sources) {
+            this.sources[source.name] = source;
             
-            PubSub.publish(events.DataSourceLoaded, sources[index]);
+            PubSub.publish(events.DataSourceLoaded, source);
         }
         
         PubSub.publish(events.AfterDataSourcesLoaded);

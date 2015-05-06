@@ -8,6 +8,7 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
+require("babel/polyfill");
 var Module = require("../Module.js").Module;
 var PubSub = _interopRequire(require("pubsub-js"));
 
@@ -35,10 +36,11 @@ var DataSources = exports.DataSources = (function (Module) {
 
         PubSub.publish(events.BeforeDataSourcesLoaded);
 
-        for (var index in sources) {
-            this.sources[sources[index].name] = sources[index];
+        for (var _iterator = sources[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
+            var source = _step.value;
+            this.sources[source.name] = source;
 
-            PubSub.publish(events.DataSourceLoaded, sources[index]);
+            PubSub.publish(events.DataSourceLoaded, source);
         }
 
         PubSub.publish(events.AfterDataSourcesLoaded);

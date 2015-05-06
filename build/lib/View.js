@@ -8,6 +8,7 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
+require("babel/polyfill");
 var Module = require("../Module.js").Module;
 
 
@@ -56,8 +57,9 @@ var View = exports.View = (function (Module) {
             // Takes one argument:
             // - components - an array of Kronicle Components
             value: function addComponents(components) {
-                for (var i in components) {
-                    this.addComponent(components[i]);
+                for (var _iterator = components[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
+                    var component = _step.value;
+                    this.addComponent(component);
                 }
             },
             writable: true,

@@ -1,3 +1,4 @@
+require("babel/polyfill");
 import {default as PubSub} from 'pubsub-js'; 
 import {events} from './EventTypes.js';
 
@@ -15,10 +16,10 @@ export class Core {
         
         PubSub.publish(events.BeforeModulesLoad, modules);
         
-        for(let mod in modules){
+        for(let mod of modules){
             
-            this.addedModules[modules[mod].name] = modules[mod];
-            PubSub.publish(events.ModuleLoaded, modules[mod]);
+            this.addedModules[mod.name] = mod;
+            PubSub.publish(events.ModuleLoaded, mod);
             
         }
         

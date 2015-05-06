@@ -8,6 +8,7 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
+require("babel/polyfill");
 var Module = require("../Module.js").Module;
 
 
@@ -66,9 +67,10 @@ var Component = exports.Component = (function (Module) {
                     aryComponents = [components];
                 }
                 this.components = components;
-                for (var index in aryComponents) {
-                    if (aryComponents[index].name) {
-                        this.addComponentModule(aryComponents[index]);
+                for (var _iterator = aryComponents[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
+                    var component = _step.value;
+                    if (component.name) {
+                        this.addComponentModule(component);
                     } else {
                         throw new Error("Error: components must have a unique name");
                     }
