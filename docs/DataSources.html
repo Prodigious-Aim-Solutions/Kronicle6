@@ -96,7 +96,8 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>import {Module} from <span class="hljs-string">'../Module.js'</span>;
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>(<span class="hljs-string">"babel/polyfill"</span>);
+import {Module} from <span class="hljs-string">'../Module.js'</span>;
 import {<span class="hljs-keyword">default</span> as PubSub} from <span class="hljs-string">'pubsub-js'</span>; 
 import {events} from <span class="hljs-string">'./DataSourcesEvents.js'</span>;</pre></div></div>
             
@@ -133,10 +134,10 @@ Events are fired at various points to indiciate the status and can be used as ho
         
         PubSub.publish(events.BeforeDataSourcesLoaded);
         
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> index <span class="hljs-keyword">in</span> sources) {
-            <span class="hljs-keyword">this</span>.sources[sources[index].name] = sources[index];
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> source of sources) {
+            <span class="hljs-keyword">this</span>.sources[source.name] = source;
             
-            PubSub.publish(events.DataSourceLoaded, sources[index]);
+            PubSub.publish(events.DataSourceLoaded, source);
         }
         
         PubSub.publish(events.AfterDataSourcesLoaded);

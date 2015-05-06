@@ -30,5 +30,10 @@ var helloCtrl = new Controller({
     model: dataSources.sources.ArrayDataSource
 });
 
+// Create App and Export to window
+// Note: this version creates the global kronApp but if you choose to do so it could be
+// a commonjs module or amd module or any other module you choose. This is a detal left
+// up to the developer. Future tooling may move to a best practice for a certain module type
+// ,most likely es6.
 var kronApp = new Kronicle().build({ modules: [dataSources, helloCtrl] });
 window.kronApp = kronApp;

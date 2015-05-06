@@ -96,7 +96,8 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>import {<span class="hljs-keyword">default</span> as PubSub} from <span class="hljs-string">'pubsub-js'</span>; 
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>(<span class="hljs-string">"babel/polyfill"</span>);
+import {<span class="hljs-keyword">default</span> as PubSub} from <span class="hljs-string">'pubsub-js'</span>; 
 import {events} from <span class="hljs-string">'./EventTypes.js'</span>;</pre></div></div>
             
         </li>
@@ -125,10 +126,10 @@ Constructor an array of Kronicle modules as an argument.</p>
         
         PubSub.publish(events.BeforeModulesLoad, modules);
         
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> mod <span class="hljs-keyword">in</span> modules){
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> mod of modules){
             
-            <span class="hljs-keyword">this</span>.addedModules[modules[mod].name] = modules[mod];
-            PubSub.publish(events.ModuleLoaded, modules[mod]);
+            <span class="hljs-keyword">this</span>.addedModules[mod.name] = mod;
+            PubSub.publish(events.ModuleLoaded, mod);
             
         }
         
