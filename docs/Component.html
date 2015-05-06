@@ -96,7 +96,8 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>import {Module} from <span class="hljs-string">'../Module.js'</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>(<span class="hljs-string">"babel/polyfill"</span>);
+import {Module} from <span class="hljs-string">'../Module.js'</span>;</pre></div></div>
             
         </li>
         
@@ -182,9 +183,9 @@ Takes one argument:</p>
             aryComponents = [components];
         }
         <span class="hljs-keyword">this</span>.components = components;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> index <span class="hljs-keyword">in</span> aryComponents){
-            <span class="hljs-keyword">if</span>(aryComponents[index].name) {
-                <span class="hljs-keyword">this</span>.addComponentModule(aryComponents[index]);
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> component of aryComponents){
+            <span class="hljs-keyword">if</span>(component.name) {
+                <span class="hljs-keyword">this</span>.addComponentModule(component);
             } <span class="hljs-keyword">else</span> {
                 <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Error: components must have a unique name'</span>);
             }
