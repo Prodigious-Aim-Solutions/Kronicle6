@@ -4,6 +4,7 @@ var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["defau
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
+require("babel/polyfill");
 var PubSub = _interopRequire(require("pubsub-js"));
 
 var events = require("./EventTypes.js").events;
@@ -23,9 +24,12 @@ var Core = exports.Core = function Core(modules) {
 
     PubSub.publish(events.BeforeModulesLoad, modules);
 
-    for (var mod in modules) {
-        this.addedModules[modules[mod].name] = modules[mod];
-        PubSub.publish(events.ModuleLoaded, modules[mod]);
+    for (var _iterator = modules[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
+        var mod = _step.value;
+
+
+        this.addedModules[mod.name] = mod;
+        PubSub.publish(events.ModuleLoaded, mod);
     }
 
     PubSub.publish(events.AfterModulesLoad, modules);

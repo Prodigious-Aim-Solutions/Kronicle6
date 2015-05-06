@@ -1,3 +1,4 @@
+require("babel/polyfill");
 import {Module} from '../Module.js';
 
 // # Kronicle.View class
@@ -32,8 +33,8 @@ export class View extends Module {
     // Takes one argument:
     // - components - an array of Kronicle Components
     addComponents (components) {
-        for(let i in components){
-            this.addComponent(components[i]);
+        for(let component of components){
+            this.addComponent(component);
         }
     }
     

@@ -1,3 +1,4 @@
+require("babel/polyfill");
 import {Module} from '../Module.js';
 
 // # Kronicle.Component class
@@ -42,9 +43,9 @@ export class Component extends Module {
             aryComponents = [components];
         }
         this.components = components;
-        for(var index in aryComponents){
-            if(aryComponents[index].name) {
-                this.addComponentModule(aryComponents[index]);
+        for(let component of aryComponents){
+            if(component.name) {
+                this.addComponentModule(component);
             } else {
                 throw new Error('Error: components must have a unique name');
             }
