@@ -96,7 +96,8 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>import {Module} from <span class="hljs-string">'../Module.js'</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>(<span class="hljs-string">"babel/polyfill"</span>);
+import {Module} from <span class="hljs-string">'../Module.js'</span>;</pre></div></div>
             
         </li>
         
@@ -172,8 +173,8 @@ Takes one argument:</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>    addComponents (components) {
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i <span class="hljs-keyword">in</span> components){
-            <span class="hljs-keyword">this</span>.addComponent(components[i]);
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> component of components){
+            <span class="hljs-keyword">this</span>.addComponent(component);
         }
     }</pre></div></div>
             
