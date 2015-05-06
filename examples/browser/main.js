@@ -979,6 +979,21 @@ dataSources.sources.ArrayDataSource.create("test", function () {
     console.log("test created");
 });
 
+var helloCtrl = new Controller({
+    name: 'HelloWorld',
+    view: new View({
+        name: 'HelloWorld',
+        template: function(data) {
+            return data ? '<h1>Hello ' + data + '! What A Curveball!</h1>' : 'Hello World';
+        }
+    }),
+    initialize: function(){
+        //return this.view.render(null, "Jason");
+    }
+});
+
+var kronApp = new Kronicle().build({ modules: [dataSources, helloCtrl] });
+window.kronApp = kronApp;
 },{"../../build/Kronicle.js":3,"../../build/lib/ArrayDataSource.js":5,"../../build/lib/Component.js":6,"../../build/lib/Controller.js":7,"../../build/lib/DataSource.js":8,"../../build/lib/DataSources.js":9,"../../build/lib/View.js":11}],13:[function(require,module,exports){
 (function (global){
 "use strict";

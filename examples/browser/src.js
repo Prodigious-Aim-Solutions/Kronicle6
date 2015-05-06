@@ -16,3 +16,19 @@ var dataSources = new DataSources([new DataSource({ source: new ArrayDataSource(
 dataSources.sources.ArrayDataSource.create("test", function () {
     console.log("test created");
 });
+
+var helloCtrl = new Controller({
+    name: 'HelloWorld',
+    view: new View({
+        name: 'HelloWorld',
+        template: function(data) {
+            return data ? '<h1>Hello ' + data + '! What A Curveball!</h1>' : 'Hello World';
+        }
+    }),
+    initialize: function(){
+        //return this.view.render(null, "Jason");
+    }
+});
+
+var kronApp = new Kronicle().build({ modules: [dataSources, helloCtrl] });
+window.kronApp = kronApp;
